@@ -1,0 +1,3 @@
+#! /bin/sh
+adduser --system --home /var/lib/i2p-browser_en-US --disabled-login --disabled-password --gecos ',,,,' i2pbrowser; true
+exit 0
