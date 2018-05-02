@@ -1,0 +1,5 @@
+#! /usr/bin/env sh
+cd /var/lib/di-i2p-browser_en-US/
+xhost +SI:localuser:i2pbrowser
+sudo -u i2pbrowser /var/lib/di-i2p-browser_en-US/Browser/start-i2p-browser
+
