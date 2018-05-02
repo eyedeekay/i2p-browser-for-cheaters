@@ -45,3 +45,8 @@ To generate your own, just type
 
 Use at your own risk. It's torbrowser, less the Tor bits, pointed at localhost
 4444.
+
+My gpg key is: 70D2060738BEF80523ACAFF7D75C03B39B5E14E1
+
+you can find the full public key at
+[https://eyedeekay.github.io/apt-now/eyedeekay.github.io.gpg.key](https://eyedeekay.github.io/apt-now/eyedeekay.github.io.gpg.key)
