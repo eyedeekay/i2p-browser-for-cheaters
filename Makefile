@@ -5,7 +5,7 @@ BROWSER_VERSION ?= $(shell curl https://www.torproject.org/projects/torbrowser.h
 
 DISPLAY = :0
 
-all: docker-browser browse docker-copy docker-clean
+all: clean docker-browser browse docker-copy docker-clean
 
 docker-browser:
 	docker build --force-rm --build-arg VERSION="$(BROWSER_VERSION)" \
@@ -22,7 +22,13 @@ browse: docker-browser
 		eyedeekay/i2p-browser
 
 docker-copy:
-	docker cp i2p-browser:/home/anon/i2p-browser.tar.gz i2p-browser_0.$(BROWSER_VERSION).tar.gz
+	docker cp i2p-browser:/home/anon/i2p-browser.tar.gz cheaters-i2p-browser_0.$(BROWSER_VERSION).tar.gz
 
 docker-clean:
 	docker rm -f i2p-browser
+
+clean:
+	rm -f *.tar.gz
+
+unpack:
+	tar -xzf cheaters-i2p-browser_0.$(BROWSER_VERSION).tar.gz
