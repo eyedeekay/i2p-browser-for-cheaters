@@ -35,3 +35,9 @@ unpack:
 
 run:
 	./i2p-browser_en-US/Browser/start-i2p-browser
+
+shasum:
+	sha256sum cheaters-i2p-browser_0.$(BROWSER_VERSION).tar.gz 2>&1 | tee cheaters-i2p-browser_0.$(BROWSER_VERSION).tar.gz.sha256sum
+
+sigsum:
+	gpg --batch --clear-sign -u "$(SIGNING_KEY)" cheaters-i2p-browser_0.$(BROWSER_VERSION).tar.gz.sha256sum
