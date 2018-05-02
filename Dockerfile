@@ -59,10 +59,9 @@ RUN rm -rf /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.
 RUN mv /home/anon/tor-browser_en-US/start-tor-browser.desktop /home/anon/tor-browser_en-US/start-i2p-browser.desktop
 RUN mv /home/anon/tor-browser_en-US/Browser/start-tor-browser.desktop /home/anon/tor-browser_en-US/Browser/start-i2p-browser.desktop
 RUN mv /home/anon/tor-browser_en-US/Browser/start-tor-browser /home/anon/tor-browser_en-US/Browser/start-i2p-browser
-
 RUN for f in $(find /home/anon/tor-browser_en-US/ -name *.desktop); do sed -i 's|start-tor-browser|start-i2p-browser|g' $f; done
 
-RUN for f in $(find /home/anon/tor-browser_en-US/ -iname *tor*); do echo $f; done
+#RUN for f in $(find /home/anon/tor-browser_en-US/ -iname *tor*); do echo $f; done
 
 RUN mkdir -p /home/anon/working
 
