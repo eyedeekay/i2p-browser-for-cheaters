@@ -1,0 +1,3 @@
+#! /bin/sh
+deluser i2pbrowser; true
+exit 0

@@ -1,5 +1,6 @@
 FROM debian:sid
 ARG VERSION
+ARG PORT
 
 ENV DEBIAN_FRONTEND=noninteractive HOME=/home/anon
 
@@ -45,6 +46,8 @@ RUN curl -sSL -o /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/pr
 
 RUN sed -i 's|i2pd.i2p|i2p-projekt.i2p|g' /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/prefs.js
 
+RUN sed -i "s|4444|$PORT|g" /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/prefs.js
+
 RUN mv /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/extension-overrides.js \
     /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/temp.js
 
@@ -59,6 +62,7 @@ RUN rm -rf /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.
 RUN mv /home/anon/tor-browser_en-US/start-tor-browser.desktop /home/anon/tor-browser_en-US/start-i2p-browser.desktop
 RUN mv /home/anon/tor-browser_en-US/Browser/start-tor-browser.desktop /home/anon/tor-browser_en-US/Browser/start-i2p-browser.desktop
 RUN mv /home/anon/tor-browser_en-US/Browser/start-tor-browser /home/anon/tor-browser_en-US/Browser/start-i2p-browser
+
 RUN for f in $(find /home/anon/tor-browser_en-US/ -name *.desktop); do sed -i 's|start-tor-browser|start-i2p-browser|g' $f; done
 
 #RUN for f in $(find /home/anon/tor-browser_en-US/ -iname *tor*); do echo $f; done
@@ -67,9 +71,9 @@ RUN mkdir -p /home/anon/working
 
 RUN cp -r /home/anon/tor-browser_en-US/ /home/anon/working/i2p-browser_en-US/
 
-RUN mv /home/anon/tor-browser_en-US/ /home/anon/i2p-browser_en-US/
-
 RUN cd /home/anon/working/ && tar czf /home/anon/i2p-browser.tar.gz .
+
+RUN mv /home/anon/working/i2p-browser_en-US/ /home/anon/i2p-browser_en-US/
 
 USER root
 
