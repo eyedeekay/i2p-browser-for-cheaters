@@ -1,5 +1,6 @@
 remove "updater.ini"
 remove "updater"
+remove "tbb_version.json"
 remove "start-tor-browser.desktop"
 remove "start-tor-browser"
 remove "run-mozilla.sh"
