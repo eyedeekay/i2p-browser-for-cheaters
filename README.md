@@ -4,10 +4,11 @@ The path of least resistance to a Linux-only i2p browser. Modifies a tor browser
 and spits out a tar.gz.
 
 Since this got a little attention, I figure I should explain what I did here
-for good measure. All it does it take the standard Tor Browser Bundle, removes
-the Torbutton and TorLauncher plugins, and HTTPS everywhere(for now, until I
-learn more about HTTPS everywhere rulesets and how they work/worked with i2p).
-Then it downloads a configuration file from PurpleI2P: https://github.com/PurpleI2P/i2pdbrowser/raw/master/linux/build/preferences/syspref.js
+for good measure. All it does it take the standard Tor Browser Bundle,
+~~removes the Torbutton and~~ **TorButton has been added back in.** TorLauncher
+plugins, and HTTPS everywhere(for now, until I learn more about HTTPS everywhere
+rulesets and how they work/worked with i2p). Then it downloads a configuration
+file from PurpleI2P: https://github.com/PurpleI2P/i2pdbrowser/raw/master/linux/build/preferences/syspref.js
 and sets it as the profile preferences in the TorBrowser instead. Then it
 renames a few files from something like start-tor-browser to start-i2p-browser
 and zips it back up.
