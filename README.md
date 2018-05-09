@@ -14,17 +14,21 @@ renames a few files from something like start-tor-browser to start-i2p-browser
 and zips it back up.
 
 From there, it can be run from the working directory, run in the Docker
-container used to build it(look in the Makefile)
+container used to build it(look in the Makefile under "make browse"), or
+re-packaged with checkinstall and run under it's own user.
 
 So I cheated. Like it says in the title. I took a bunch of shortcuts and it's
-not as good as it should be. Torbutton doesn't just talk to Tor, for instance,
-it guarantees configuration settings as well. Ideally, an application would talk
-to Torbutton on an i2p router's behalf in roughly the same manner as Tor.
-If one wants to, at some point, create an i2p browser bundle, then one will
-need something like TorLauncher to make sure that i2p starts. And I'm not at all
-sure what i2p's plans for HTTPS are yet, but I'm aware of some. I don't change
-the NoScript configuration and frankly, I find Firefox in general a little
-complicated and hard to configure. There is plenty I could have missed.
+not as good as it should be. Torbutton doesn't just talk to guarantee
+configuration settings, it talks to Tor as well via the ControlPort. Ideally, an
+application would talk to Torbutton on an i2p router's behalf in roughly the
+same manner as Tor by implementing the relevant parts of the ControlPort
+specification.
+
+Besides TorButton, If one wants to, at some point, create an i2p browser bundle,
+then one will need something like TorLauncher to make sure that i2p starts. And
+I'm not at all sure what i2p's plans for HTTPS are yet, but I'm aware of some.
+I don't change the NoScript configuration and frankly, I find Firefox in general
+a little complicated and hard to configure. There is plenty I could have missed.
 I made this because I needed something like it and didn't particularly like the
 other options. Mostly that they were based on old versions of TorBrowser mostly.
 Which makes me nervous about the config file I pulled. This is, at best, a short
