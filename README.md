@@ -5,7 +5,7 @@ and spits out a tar.gz.
 
 Since this got a little attention, I figure I should explain what I did here
 for good measure. All it does it take the standard Tor Browser Bundle,
-~~removes the Torbutton and~~ **TorButton has been added back in.** TorLauncher
+~~removes the Torbutton and~~ ~~**TorButton has been added back in.**~~ Never mind. TorButton and TorLauncher
 plugins, and HTTPS everywhere(for now, until I learn more about HTTPS everywhere
 rulesets and how they work/worked with i2p). Then it downloads a configuration
 file from PurpleI2P: https://github.com/PurpleI2P/i2pdbrowser/raw/master/linux/build/preferences/syspref.js
@@ -33,6 +33,10 @@ I made this because I needed something like it and didn't particularly like the
 other options. Mostly that they were based on old versions of TorBrowser mostly.
 Which makes me nervous about the config file I pulled. This is, at best, a short
 term solution in early development for now.
+
+For more details about the issues being addressed in this browser, please see:
+https://forums.whonix.org/t/i2p-integration/
+
 
 In the spirit of this being a total rip-off, here's the story of a nameless
 hero.
