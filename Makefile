@@ -37,7 +37,7 @@ docker-browser:
 		-f Dockerfile -t eyedeekay/$(VARIANT)i2p-browser .
 
 browse:
-	docker run --rm -i -t \
+	docker run --rm -i -t -d \
 		-e DISPLAY=$(DISPLAY) \
 		-e VERSION="$(BROWSER_VERSION)" \
 		--net host \
