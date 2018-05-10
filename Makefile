@@ -10,13 +10,15 @@ PKG_VERSION = 0.$(BROWSER_VERSION)
 
 VARIANT ?= cheaters
 #VARIANT ?= di
+#VARIANT ?= privoxy
 
 PORT ?= 4444
 #PORT ?= 4443
+#PORT ?= 8118
 
 DISPLAY = :0
 
-all: cheater di
+all: cheater di privoxy
 
 echo:
 	@echo "Building variant: $(VARIANT):$(PORT)"
@@ -29,6 +31,20 @@ cheater:
 
 di:
 	VARIANT=di PORT=4443 make build
+
+privoxy:
+	VARIANT=privoxy PORT=8118 make build
+
+all-release: release-cheater release-di release-privoxy
+
+release-cheater:
+	VARIANT=cheaters PORT=4444 make build release upload
+
+release-di:
+	VARIANT=di PORT=4443 make build release upload
+
+release-privoxy:
+	VARIANT=privoxy PORT=8118 make build release upload
 
 docker-browser:
 	docker build --force-rm \
@@ -59,7 +75,7 @@ docker-clobber-all:
 	docker rmi -f eyedeekay/cheatersi2p-browser eyedeekay/dii2p-browser
 
 clean:
-	rm -rf $(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz $(VARIANT)-i2p-browser_en-US $(VARIANT)-i2p-browser*.asc
+	rm -rf $(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz $(VARIANT)-i2p-browser_en-US $(VARIANT)-i2p-browser_$(PKG_VERSION)*.asc $(VARIANT)-i2p-browser_$(PKG_VERSION)*.deb $(VARIANT)-i2p-browser_$(PKG_VERSION)*.sha256sum
 
 unpack:
 	tar -xzf $(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz
@@ -119,3 +135,27 @@ description-pak:
 	@echo "$(VARIANT)-i2p-browser" | tee description-pak
 	@echo "" | tee -a description-pak
 	@echo "A modified TorBrowser that uses i2p instead." | tee -a description-pak
+
+export GITHUB_RELEASE_PATH="$(HOME)/.go/bin/github-release"
+
+release:
+	"$(GITHUB_RELEASE_PATH)" release \
+		--user eyedeekay \
+		--repo "i2p-browser-for-cheaters" \
+		--tag "$(VARIANT)-i2p-browser-$(PKG_VERSION)" \
+		--name "$(VARIANT)-i2p-browser" \
+		--description "A modified Tor Browser Bundle, pre-configured to use i2p."; true
+
+upload:
+	"$(GITHUB_RELEASE_PATH)" upload --user eyedeekay --repo "i2p-browser-for-cheaters" --tag "$(VARIANT)-i2p-browser-$(PKG_VERSION)" --replace \
+		--name "$(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz.sha256sum.asc" \
+		--file "$(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz.sha256sum.asc"
+	"$(GITHUB_RELEASE_PATH)" upload --user eyedeekay --repo "i2p-browser-for-cheaters" --tag "$(VARIANT)-i2p-browser-$(PKG_VERSION)" --replace \
+		--name "$(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz.sha256sum" \
+		--file "$(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz.sha256sum"
+	"$(GITHUB_RELEASE_PATH)" upload --user eyedeekay --repo "i2p-browser-for-cheaters" --tag "$(VARIANT)-i2p-browser-$(PKG_VERSION)" --replace \
+		--name "$(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz" \
+		--file "$(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz"
+	"$(GITHUB_RELEASE_PATH)" upload --user eyedeekay --repo "i2p-browser-for-cheaters" --tag "$(VARIANT)-i2p-browser-$(PKG_VERSION)" --replace \
+		--name "$(VARIANT)-i2p-browser_$(PKG_VERSION)-1_amd64.deb" \
+		--file "$(VARIANT)-i2p-browser_$(PKG_VERSION)-1_amd64.deb"
