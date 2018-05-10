@@ -48,6 +48,7 @@ RUN sed -i 's|i2pd.i2p|i2p-projekt.i2p|g' /home/anon/tor-browser_en-US/Browser/T
 
 RUN sed -i "s|4444|$PORT|g" /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/prefs.js
 
+
 RUN mv /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/extension-overrides.js \
     /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/temp.js
 
@@ -55,7 +56,10 @@ RUN grep -v torlauncher /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Bro
     /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/extension-overrides.js && \
     rm /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/temp.js
 
-RUN rm -rf /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/extensions/tor*.xpi \
+RUN echo  '# TorButton Preferences:' | tee -a /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/extension-overrides.js
+RUN echo  'pref("extensions.torbutton.use_nontor_proxy", true);' | tee -a /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/extension-overrides.js
+
+RUN rm -rf /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/extensions/tor-launcher*.xpi \
     /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/extensions/https*.xpi \
     /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.meek-http-helper
 
