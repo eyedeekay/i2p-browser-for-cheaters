@@ -64,3 +64,5 @@ pref("noscript.clearClick", 0);
 
 
 pref("intl.locale.matchOS", false);
+# TorButton Preferences:
+pref("extensions.torbutton.use_nontor_proxy", true);

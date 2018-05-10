@@ -5,24 +5,27 @@ and spits out a tar.gz.
 
 Since this got a little attention, I figure I should explain what I did here
 for good measure. All it does it take the standard Tor Browser Bundle,
-~~removes the Torbutton and~~ ~~**TorButton has been added back in.**~~ Never mind. TorButton and TorLauncher
-plugins, and HTTPS everywhere(for now, until I learn more about HTTPS everywhere
+~~removes the Torbutton and~~ TorButton has been added back in. TorLauncher
+plugins, HTTPS everywhere(for now, until I learn more about HTTPS everywhere
 rulesets and how they work/worked with i2p). Then it downloads a configuration
 file from PurpleI2P: https://github.com/PurpleI2P/i2pdbrowser/raw/master/linux/build/preferences/syspref.js
-and sets it as the profile preferences in the TorBrowser instead. Then it
-renames a few files from something like start-tor-browser to start-i2p-browser
-and zips it back up.
+and sets it as the profile preferences in the TorBrowser instead. It also adds
+a line to keep your i2p use from being detectable requests for resources on your
+i2p router's administration page. Then it renames a few files from something
+like start-tor-browser to start-i2p-browser and zips it back up.
+
+By the way, these notes are, at this point, as much for my benefit as anybody
+else's. Need to keep track of what's going on.
 
 From there, it can be run from the working directory, run in the Docker
 container used to build it(look in the Makefile under "make browse"), or
 re-packaged with checkinstall and run under it's own user.
 
 So I cheated. Like it says in the title. I took a bunch of shortcuts and it's
-not as good as it should be. Torbutton doesn't just talk to guarantee
-configuration settings, it talks to Tor as well via the ControlPort. Ideally, an
-application would talk to Torbutton on an i2p router's behalf in roughly the
-same manner as Tor by implementing the relevant parts of the ControlPort
-specification.
+not as good as it should be. Thanks to hulahoopwhonix I know how to make
+TorButton cooperate with a non-tor proxy now, so that situation has improved.
+But I'm sure there's plenty of room for improvement still. This readme, for
+instance. Could be broken up into done/not done tasks as they are identified.
 
 Besides TorButton, If one wants to, at some point, create an i2p browser bundle,
 then one will need something like TorLauncher to make sure that i2p starts. And
@@ -30,13 +33,12 @@ I'm not at all sure what i2p's plans for HTTPS are yet, but I'm aware of some.
 I don't change the NoScript configuration and frankly, I find Firefox in general
 a little complicated and hard to configure. There is plenty I could have missed.
 I made this because I needed something like it and didn't particularly like the
-other options. Mostly that they were based on old versions of TorBrowser mostly.
-Which makes me nervous about the config file I pulled. This is, at best, a short
-term solution in early development for now.
+other options. Mostly that they were based on old versions of TorBrowser. Which
+makes me nervous about the config file I pulled. This is, at best, a short term
+solution in early development for now.
 
 For more details about the issues being addressed in this browser, please see:
 https://forums.whonix.org/t/i2p-integration/
-
 
 In the spirit of this being a total rip-off, here's the story of a nameless
 hero.
