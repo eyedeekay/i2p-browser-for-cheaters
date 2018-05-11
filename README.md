@@ -93,4 +93,4 @@ My gpg key is: 70D2060738BEF80523ACAFF7D75C03B39B5E14E1
 you can find the full public key at
 [https://eyedeekay.github.io/apt-now/eyedeekay.github.io.gpg.key](https://eyedeekay.github.io/apt-now/eyedeekay.github.io.gpg.key)
 
-git filter-branch --prune-empty -d /dev/shm/scratch --index-filter "git rm --cached -f --ignore-unmatch $(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz" --tag-name-filter cat -- --all
+

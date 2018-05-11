@@ -181,14 +181,26 @@ upload:
 		--file "$(VARIANT)-i2p-browser_$(PKG_VERSION)-1_amd64.deb"
 
 filterbranch:
-	git filter-branch -f --prune-empty -d /dev/shm/scratch --index-filter "git rm --cached -f --ignore-unmatch $(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz" --tag-name-filter cat -- --all
-	git filter-branch -f --prune-empty -d /dev/shm/scratch --index-filter "git rm --cached -f --ignore-unmatch $(VARIANT)-i2p-browser_$(PKG_VERSION)-1_amd64.deb" --tag-name-filter cat -- --all
+	git filter-branch -f --prune-empty -d /dev/shm/scratch --index-filter "git rm --cached -f --ignore-unmatch $(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz $(VARIANT)-i2p-browser_$(PKG_VERSION)-1_amd64.deb" --tag-name-filter cat -- --all
+	git update-ref -d refs/original/refs/heads/master
+	git reflog expire --expire=now --all
 
 filter-cheater:
+	git commit -am "Filtering large file from branch"; true
 	VARIANT=cheaters PORT=4444 make filterbranch
+	git gc --prune=now
+	git commit -am "Filtering large file from branch"; true
 
 filter-di:
+	git commit -am "Filtering large file from branch"; true
 	VARIANT=di PORT=4444 make filterbranch
+	git gc --prune=now
+	git commit -am "Filtering large file from branch"; true
 
 filter-privoxy:
+	git commit -am "Filtering large file from branch"; true
 	VARIANT=privoxy PORT=4444 make filterbranch
+	git gc --prune=now
+	git commit -am "Filtering large file from branch"; true
+
+filter: filter-cheater filter-di filter-privoxy
