@@ -179,3 +179,16 @@ upload:
 		--replace \
 		--name "$(VARIANT)-i2p-browser_$(PKG_VERSION)-1_amd64.deb" \
 		--file "$(VARIANT)-i2p-browser_$(PKG_VERSION)-1_amd64.deb"
+
+filterbranch:
+	git filter-branch -f --prune-empty -d /dev/shm/scratch --index-filter "git rm --cached -f --ignore-unmatch $(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz" --tag-name-filter cat -- --all
+	git filter-branch -f --prune-empty -d /dev/shm/scratch --index-filter "git rm --cached -f --ignore-unmatch $(VARIANT)-i2p-browser_$(PKG_VERSION)-1_amd64.deb" --tag-name-filter cat -- --all
+
+filter-cheater:
+	VARIANT=cheaters PORT=4444 make filterbranch
+
+filter-di:
+	VARIANT=di PORT=4444 make filterbranch
+
+filter-privoxy:
+	VARIANT=privoxy PORT=4444 make filterbranch
