@@ -5,7 +5,7 @@ and spits out a tar.gz.
 
 Since this got a little attention, I figure I should explain what I did here
 for good measure. All it does it take the standard Tor Browser Bundle,
-~~removes the Torbutton and~~ TorButton has been added back in. TorLauncher
+~~removes the Torbutton and~~ TorButton has been added back in, TorLauncher
 plugins, HTTPS everywhere(for now, until I learn more about HTTPS everywhere
 rulesets and how they work/[worked](https://github.com/chris-barry/darkweb-everywhere) with i2p). Then it downloads a configuration
 file from PurpleI2P: https://github.com/PurpleI2P/i2pdbrowser/raw/master/linux/build/preferences/syspref.js
