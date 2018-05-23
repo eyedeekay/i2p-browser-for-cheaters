@@ -8,11 +8,12 @@ for good measure. All it does it take the standard Tor Browser Bundle,
 ~~removes the Torbutton and~~ TorButton has been added back in, TorLauncher
 plugins, HTTPS everywhere(for now, until I learn more about HTTPS everywhere
 rulesets and how they work/[worked](https://github.com/chris-barry/darkweb-everywhere) with i2p). Then it downloads a configuration
-file from PurpleI2P: https://github.com/PurpleI2P/i2pdbrowser/raw/master/linux/build/preferences/syspref.js
-and sets it as the profile preferences in the TorBrowser instead. It also adds
-a line to keep your i2p use from being detectable requests for resources on your
-i2p router's administration page. Then it renames a few files from something
-like start-tor-browser to start-i2p-browser and zips it back up.
+file from ~~PurpleI2P~~ Me for now, based on the PurpleI2P settings and
+experimentation: https://github.com/eyedeekay/i2p-browser-for-cheaters/raw/master/syspref.js
+and replaces the Tor socks proxy with the i2p http proxy. In order to do that,
+the extension-overrides file needs to be edited to include use\_nontor\_proxy
+true. Then it renames a few files from something like start-tor-browser to
+start-i2p-browser and zips it back up.
 
 Oh also it determines which version of the TBB to use by scraping the TBB
 download page and getting the latest stable version. Which could be useful or

@@ -42,7 +42,7 @@ RUN tar xf /home/anon/tor.tar.xz
 RUN rm -f /home/anon/tor.tar.xz*
 
 RUN curl -sSL -o /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/prefs.js \
-    https://github.com/PurpleI2P/i2pdbrowser/raw/master/linux/build/preferences/syspref.js
+    https://github.com/eyedeekay/i2p-browser-for-cheaters/raw/master/syspref.js
 
 RUN sed -i 's|i2pd.i2p|i2p-projekt.i2p|g' /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/prefs.js
 
