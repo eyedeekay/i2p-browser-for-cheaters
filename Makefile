@@ -214,4 +214,3 @@ cleanbranches:
 	git fsck --full --unreachable
 	git repack -A -d
 	git gc --aggressive --prune=now
-	git filter-branch -f --prune-empty -d /dev/shm/scratch --index-filter "git rm --cached -f --ignore-unmatch *.tar.gz *.deb" --tag-name-filter cat -- --all
