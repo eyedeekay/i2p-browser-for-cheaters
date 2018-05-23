@@ -84,3 +84,10 @@ rm -r "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/ext
     "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/extensions/"https*.xpi \
     "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.meek-http-helper"
 
+#mv "$i2pbrowser_directory/start-tor-browser.desktop" "$i2pbrowser_directory/start-i2p-browser.desktop"
+#mv "$i2pbrowser_directory/Browser/start-tor-browser.desktop" "$i2pbrowser_directory/Browser/start-i2p-browser.desktop"
+#mv "$i2pbrowser_directory/Browser/start-tor-browser" "$i2pbrowser_directory/Browser/start-i2p-browser"
+
+#for f in $(find "$i2pbrowser_directory/tor-browser_en-US/" -name *.desktop); do
+    #sed -i 's|start-tor-browser|start-i2p-browser|g' $f;
+#done

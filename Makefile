@@ -9,9 +9,6 @@ PKG_VERSION=0.$(BROWSER_VERSION)
 
 DISPLAY = :0
 
-VARIANT=cheaters
-PORT=4444
-
 all: cheater di privoxy
 
 echo:
@@ -45,13 +42,24 @@ privoxy:
 release: release-cheater release-di release-privoxy
 
 release-cheater:
-	VARIANT=cheaters PORT=4444 make cheater upload
+	VARIANT=cheaters PORT=4444 make cheater upload-cheater
 
 release-di:
-	VARIANT=di PORT=4443 make di upload
+	VARIANT=di PORT=4443 make di upload-di
 
 release-privoxy:
-	VARIANT=privoxy PORT=8118 make privoxy upload
+	VARIANT=privoxy PORT=8118 make privoxy upload-privoxy
+
+all-upload: upload-cheater upload-di upload-privoxy
+
+upload-cheater:
+	VARIANT=cheaters PORT=4444 make upload
+
+upload-di:
+	VARIANT=di PORT=4443 make upload
+
+upload-privoxy:
+	VARIANT=privoxy PORT=8118 make upload
 
 docker-browser:
 	docker build --force-rm \
@@ -178,6 +186,20 @@ upload:
 		--replace \
 		--name "$(VARIANT)-i2p-browser_$(PKG_VERSION)-1_amd64.deb" \
 		--file "$(VARIANT)-i2p-browser_$(PKG_VERSION)-1_amd64.deb"
+
+delrelease:
+	"$(GITHUB_RELEASE_PATH)" delete --user eyedeekay \
+		--repo "i2p-browser-for-cheaters" \
+		--tag "$(VARIANT)-i2p-browser-$(PKG_VERSION)"; true
+
+
+createrelease:
+	"$(GITHUB_RELEASE_PATH)" release --user eyedeekay \
+		--repo "i2p-browser-for-cheaters" \
+		--tag "$(VARIANT)-i2p-browser-$(PKG_VERSION)" \
+		--description "TBB modified to use i2p instead; $(VARIANT) version"
+
+rerelease: delrelease createrelease
 
 filterbranch:
 	git filter-branch -f --prune-empty -d /dev/shm/scratch --index-filter "git rm --cached -f --ignore-unmatch $(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz $(VARIANT)-i2p-browser_$(PKG_VERSION)-1_amd64.deb" --tag-name-filter cat -- --all

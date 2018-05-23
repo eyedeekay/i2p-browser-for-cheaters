@@ -50,13 +50,12 @@ RUN mv /home/anon/tor-browser_en-US/Browser/start-tor-browser /home/anon/tor-bro
 
 RUN for f in $(find /home/anon/tor-browser_en-US/ -name *.desktop); do sed -i 's|start-tor-browser|start-i2p-browser|g' $f; done
 
-#RUN for f in $(find /home/anon/tor-browser_en-US/ -iname *tor*); do echo $f; done
-
 RUN mkdir -p /home/anon/working
 
 RUN cp -r /home/anon/tor-browser_en-US/ /home/anon/working/i2p-browser_en-US/
 
-RUN cd /home/anon/working/ && tar czf /home/anon/i2p-browser.tar.gz .
+RUN cd /home/anon/working/ && \
+    tar czf /home/anon/i2p-browser.tar.gz .
 
 RUN mv /home/anon/working/i2p-browser_en-US/ /home/anon/i2p-browser_en-US/
 
@@ -65,4 +64,3 @@ USER root
 CMD chown -R anon:anon /home/anon/.local/ && \
     chmod -R o+rw /home/anon/.local/ && \
     sudo -u anon /home/anon/i2p-browser_en-US/Browser/start-i2p-browser
-
