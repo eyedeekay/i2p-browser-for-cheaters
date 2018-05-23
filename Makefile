@@ -207,3 +207,11 @@ filter: filter-cheater filter-di filter-privoxy
 
 overrides:
 	cp ./cheaters-i2p-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/extension-overrides.js ./extension-overrides.js
+
+cleanbranches:
+	rm -rf .git/refs/original/
+	git reflog expire --expire=now --all
+	git fsck --full --unreachable
+	git repack -A -d
+	git gc --aggressive --prune=now
+	git filter-branch -f --prune-empty -d /dev/shm/scratch --index-filter "git rm --cached -f --ignore-unmatch *.tar.gz *.deb" --tag-name-filter cat -- --all
