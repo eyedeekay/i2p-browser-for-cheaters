@@ -38,9 +38,11 @@ I'm not at all sure what i2p's plans for HTTPS are yet, but I'm aware of some.
 I don't change the NoScript configuration and frankly, I find Firefox in general
 a little complicated and hard to configure. There is plenty I could have missed.
 I made this because I needed something like it and didn't particularly like the
-other options. Mostly that they were based on old versions of TorBrowser. Which
-makes me nervous about the config file I pulled. This is, at best, a short term
-solution in early development for now.
+other options. Mostly that they were based on old versions of TorBrowser.
+~~Which makes me nervous about the config file I pulled~~. Thank goodness for
+constructive criticism and peer-review. The new sysprefs.js merely sets the i2p
+proxy and relies on TorButton to fix the remaining settings. This should make
+the browser even less unique to the user.
 
 For more details about the issues being addressed in this browser, please see:
 https://forums.whonix.org/t/i2p-integration/
