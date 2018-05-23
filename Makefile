@@ -3,28 +3,35 @@ UNAME ?= $(shell uname -s | tr '[:upper:]' '[:lower:]')
 UARCH ?= $(shell uname -m | tr '[:upper:]' '[:lower:]' | sed 's|x86_64|amd64|g')
 
 browser=$(PWD)/browser
-BROWSER_VERSION = $(shell curl https://www.torproject.org/projects/torbrowser.html.en 2>&1 | grep '<th>GNU/Linux<br>' | sed 's|<th>GNU/Linux<br><em>(||g' | sed 's|)</em></th>||g' | tr -d ' ')
+BROWSER_VERSION=$(shell curl https://www.torproject.org/projects/torbrowser.html.en 2>&1 | grep '<th>GNU/Linux<br>' | sed 's|<th>GNU/Linux<br><em>(||g' | sed 's|)</em></th>||g' | tr -d ' ')
 
-
-PKG_VERSION = 0.$(BROWSER_VERSION)
-
-VARIANT ?= cheaters
-#VARIANT ?= di
-#VARIANT ?= privoxy
-
-PORT ?= 4444
-#PORT ?= 4443
-#PORT ?= 8118
+PKG_VERSION=0.$(BROWSER_VERSION)
 
 DISPLAY = :0
+
+VARIANT=cheaters
+PORT=4444
 
 all: cheater di privoxy
 
 echo:
 	@echo "Building variant: $(VARIANT):$(PORT)"
+	@echo "$(BROWSER_VERSION)"
 	sleep 3
 
 build: echo clean docker-browser browse docker-copy docker-clean unpack shasum sigsum checkinstall
+
+tbb.tar.xz:
+	/usr/bin/wget -q -c -O tbb.tar.xz "https://www.torproject.org/dist/torbrowser/"$(BROWSER_VERSION)"/tor-browser-linux64-"$(BROWSER_VERSION)"_en-US.tar.xz"
+	/usr/bin/wget -c -O tbb.tar.xz.asc "https://www.torproject.org/dist/torbrowser/"$(BROWSER_VERSION)"/tor-browser-linux64-"$(BROWSER_VERSION)"_en-US.tar.xz.asc"
+
+checksig: tbb.tar.xz
+	gpg --keyserver ha.pool.sks-keyservers.net \
+      --recv-keys "EF6E 286D DA85 EA2A 4BA7  DE68 4E2C 6E87 9329 8290"
+	gpg --verify tbb.tar.xz.asc || rm tbb.tar.xz
+
+download: checksig
+	tar xf tbb.tar.xz
 
 cheater:
 	VARIANT=cheaters PORT=4444 make build
@@ -35,35 +42,27 @@ di:
 privoxy:
 	VARIANT=privoxy PORT=8118 make build
 
-all-release: release-cheater release-di release-privoxy
+release: release-cheater release-di release-privoxy
 
 release-cheater:
-	VARIANT=cheaters PORT=4444 make release upload
+	VARIANT=cheaters PORT=4444 make cheater upload
 
 release-di:
-	VARIANT=di PORT=4443 make release upload
+	VARIANT=di PORT=4443 make di upload
 
 release-privoxy:
-	VARIANT=privoxy PORT=8118 make release upload
-
-release: cheater-release di-release privoxy-release
-
-cheater-release: cheater release-cheater
-
-di-release: di release-di
-
-privoxy-release: privoxy release-privoxy
+	VARIANT=privoxy PORT=8118 make privoxy upload
 
 docker-browser:
 	docker build --force-rm \
-		--build-arg VERSION="$(BROWSER_VERSION)" \
+		--build-arg BROWSER_VERSION="$(BROWSER_VERSION)" \
 		--build-arg PORT="$(PORT)" \
 		-f Dockerfile -t eyedeekay/$(VARIANT)i2p-browser .
 
 browse:
 	docker run --rm -i -t -d \
 		-e DISPLAY=$(DISPLAY) \
-		-e VERSION="$(BROWSER_VERSION)" \
+		-e BROWSER_VERSION="$(BROWSER_VERSION)" \
 		--net host \
 		--name i2p-browser \
 		--volume /tmp/.X11-unix:/tmp/.X11-unix:ro \

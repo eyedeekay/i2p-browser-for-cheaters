@@ -1,5 +1,5 @@
 FROM debian:sid
-ARG VERSION
+ARG BROWSER_VERSION
 ARG PORT
 
 ENV DEBIAN_FRONTEND=noninteractive HOME=/home/anon
@@ -27,10 +27,10 @@ USER anon
 WORKDIR /home/anon
 
 RUN curl -sSL -o /home/anon/tor.tar.xz \
-      https://www.torproject.org/dist/torbrowser/${VERSION}/tor-browser-linux64-${VERSION}_en-US.tar.xz
+      https://www.torproject.org/dist/torbrowser/${BROWSER_VERSION}/tor-browser-linux64-${BROWSER_VERSION}_en-US.tar.xz
 
 RUN curl -sSL -o /home/anon/tor.tar.xz.asc \
-      https://www.torproject.org/dist/torbrowser/${VERSION}/tor-browser-linux64-${VERSION}_en-US.tar.xz.asc
+      https://www.torproject.org/dist/torbrowser/${BROWSER_VERSION}/tor-browser-linux64-${BROWSER_VERSION}_en-US.tar.xz.asc
 
 RUN gpg --keyserver ha.pool.sks-keyservers.net \
       --recv-keys "EF6E 286D DA85 EA2A 4BA7  DE68 4E2C 6E87 9329 8290"
@@ -41,27 +41,8 @@ RUN tar xf /home/anon/tor.tar.xz
 
 RUN rm -f /home/anon/tor.tar.xz*
 
-RUN curl -sSL -o /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/prefs.js \
-    https://github.com/eyedeekay/i2p-browser-for-cheaters/raw/master/syspref.js
-
-RUN sed -i 's|i2pd.i2p|i2p-projekt.i2p|g' /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/prefs.js
-
-RUN sed -i "s|4444|$PORT|g" /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/prefs.js
-
-
-RUN mv /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/extension-overrides.js \
-    /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/temp.js
-
-RUN grep -v torlauncher /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/temp.js > \
-    /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/extension-overrides.js && \
-    rm /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/temp.js
-
-RUN echo  '# TorButton Preferences:' | tee -a /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/extension-overrides.js
-RUN echo  'pref("extensions.torbutton.use_nontor_proxy", true);' | tee -a /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/extension-overrides.js
-
-RUN rm -rf /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/extensions/tor-launcher*.xpi \
-    /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/extensions/https*.xpi \
-    /home/anon/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.meek-http-helper
+COPY setup-i2p-browser.sh .
+RUN ./setup-i2p-browser.sh "/home/anon/tor-browser_en-US/" "$PORT"
 
 RUN mv /home/anon/tor-browser_en-US/start-tor-browser.desktop /home/anon/tor-browser_en-US/start-i2p-browser.desktop
 RUN mv /home/anon/tor-browser_en-US/Browser/start-tor-browser.desktop /home/anon/tor-browser_en-US/Browser/start-i2p-browser.desktop

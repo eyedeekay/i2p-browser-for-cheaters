@@ -62,7 +62,11 @@ fi
 extension_overrides="$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/preferences/extension-overrides.js"
 sysprefs_location="$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/prefs.js"
 
-echo "modifying Tor Browser Bundle in: $i2pbrowser_directory for use with i2p. http port is set to $i2pbrowser_port" 1>&2
+echo "modifying Tor Browser Bundle in: $i2pbrowser_directory for use with i2p.
+    http port is set to $i2pbrowser_port
+    firefox preferences are in $sysprefs_location
+    extension preferences are in $extension_overrides
+    " 1>&2
 
 grep -v torlauncher "$extension_overrides" > \
     "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/preferences/temp.js"
@@ -76,7 +80,7 @@ echo "$i2pbrowser_syspref_js" | tee "$sysprefs_location"
 
 sed -i "s|4444|$i2pbrowser_port|g" "$sysprefs_location"
 
-rm -f "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/extensions/tor-launcher*.xpi" \
-    "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/extensions/https*.xpi" \
+rm -r "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/extensions/"tor-launcher*.xpi \
+    "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/extensions/"https*.xpi \
     "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.meek-http-helper"
 
