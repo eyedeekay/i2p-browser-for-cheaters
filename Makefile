@@ -204,3 +204,6 @@ filter-privoxy:
 	git commit -am "Filtering large file from branch"; true
 
 filter: filter-cheater filter-di filter-privoxy
+
+overrides:
+	cp ./cheaters-i2p-browser_en-US/Browser/TorBrowser/Data/Browser/profile.default/preferences/extension-overrides.js ./extension-overrides.js

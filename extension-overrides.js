@@ -60,10 +60,6 @@ pref("noscript.clearClick", 0);
 
 // Default bridges.
 
-
-
-
 pref("intl.locale.matchOS", false);
-
-# TorButton Preferences
+# TorButton Preferences:
 pref("extensions.torbutton.use_nontor_proxy", true);
