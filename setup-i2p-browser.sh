@@ -24,7 +24,13 @@ pref(\"network.proxy.share_proxy_settings\", true);
 "
 
 i2pbrowser_append_extension_overrides="
+pref(\"extensions.https_everywhere.globalEnabled\", false);
+
 pref(\"extensions.torbutton.use_nontor_proxy\", true);
+
+pref(\"extensions.torlauncher.start_tor\", false);
+pref(\"extensions.torlauncher.default_bridge_type\", \"\");
+pref(\"extensions.torlauncher.prompt_at_startup\", false);
 "
 
 validate_i2pbrowser_directory(){
@@ -74,9 +80,7 @@ echo "$i2pbrowser_syspref_js" | tee "$i2pbrowser_preferences"
 
 sed -i "s|4444|$i2pbrowser_port|g" "$i2pbrowser_preferences"
 
-rm -r "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/extensions/"tor-launcher*.xpi \
-    "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/extensions/"https*.xpi \
-    "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.meek-http-helper"
+rm -r "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.meek-http-helper"
 
 mv "$i2pbrowser_directory/start-tor-browser.desktop" "$i2pbrowser_directory/start-i2p-browser.desktop"
 mv "$i2pbrowser_directory/Browser/start-tor-browser.desktop" "$i2pbrowser_directory/Browser/start-i2p-browser.desktop"

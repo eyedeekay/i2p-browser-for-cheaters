@@ -237,4 +237,4 @@ cleanbranches:
 	git gc --aggressive --prune=now
 
 issue:
-	surf https://forums.whonix.org/t/i2p-integration/4981/130
+	surf https://forums.whonix.org/t/i2p-integration/4981/140
