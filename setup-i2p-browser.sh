@@ -9,11 +9,13 @@
 #       #or not pointed at a TBB
 #    export i2pbrowser_port="4444" #Defaults to 4444, change only if using a non
 #       #default i2p http proxy
+#    export i2pbrowser_addr="127.0.0.1"
+#       #local or isolated i2p http proxy
 #    source ./setup-i2p-browser.sh
 
 ## from the terminal:
 
-#    ./setup-i2p-browser.sh "path_to_tbb"(required) "4444"(optional)
+#    ./setup-i2p-browser.sh "path_to_tbb"(required) "4444"(optional) "127.0.0.1(default)"
 
 i2pbrowser_syspref_js="
 pref(\"network.proxy.no_proxies_on\", 0);
@@ -61,6 +63,14 @@ else
     fi
 fi
 
+if [ ! -z "$3" ]; then
+    i2pbrowser_addr="$3"
+else
+    if [ -z "$i2pbrowser_addr" ]; then
+        i2pbrowser_addr="127.0.0.1"
+    fi
+fi
+
 if [ -z "$i2pbrowser_directory" ]; then
     echo "error; i2pbrowser_directory unset" 1>&2
     exit 1
@@ -77,9 +87,13 @@ echo "modifying Tor Browser Bundle in: $i2pbrowser_directory for use with i2p.
 
 echo "$i2pbrowser_append_extension_overrides" | tee -a "$extension_overrides"
 
-echo "$i2pbrowser_syspref_js" | tee "$i2pbrowser_preferences"
+echo "$i2pbrowser_syspref_js" > "$i2pbrowser_preferences"
 
 sed -i "s|4444|$i2pbrowser_port|g" "$i2pbrowser_preferences"
+
+sed -i "s|127.0.0.1|$i2pbrowser_addr|g" "$i2pbrowser_preferences"
+
+cat "$i2pbrowser_preferences"
 
 rm -r "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.meek-http-helper"
 

@@ -144,7 +144,7 @@ Use at your own risk.
 
 If you don't want to use a TBB downloaded by the makefile, running
 
-        ./setup-i2p-browser.sh "$path_to_browser" "$desired_port"
+        ./setup-i2p-browser.sh "$path_to_browser" "$desired_port" "$desired_addr"
 
 will modify an existing TBB to use i2p.
 

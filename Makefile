@@ -11,6 +11,9 @@ browser=$(PWD)/browser
 EXPERIMENTAL=0.
 BROWSER_VERSION=8.0a7
 
+DEFAULT_PORT=4444
+DEFAULT_ADDR=127.0.0.1
+
 PKG_VERSION=0.$(EXPERIMENTAL)$(BROWSER_VERSION)
 
 DISPLAY = :0
@@ -39,7 +42,7 @@ download: checksig
 		tar xf ../tbb.tar.xz
 
 easy: download
-	./setup-i2p-browser ./browser/tor-browser_en-US
+	./setup-i2p-browser.sh ./browser/tor-browser_en-US $(DEFAULT_PORT) $(DEFAULT_ADDR)
 
 cheater:
 	VARIANT=cheaters PORT=4444 make build
