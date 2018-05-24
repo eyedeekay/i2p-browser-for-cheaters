@@ -3,7 +3,12 @@ UNAME ?= $(shell uname -s | tr '[:upper:]' '[:lower:]')
 UARCH ?= $(shell uname -m | tr '[:upper:]' '[:lower:]' | sed 's|x86_64|amd64|g')
 
 browser=$(PWD)/browser
+
+#COMMENT THE FOLLOWING LINE IF YOU WANT TO USE THE EXPERIMENTAL TBB
 BROWSER_VERSION=$(shell curl https://www.torproject.org/projects/torbrowser.html.en 2>&1 | grep '<th>GNU/Linux<br>' | sed 's|<th>GNU/Linux<br><em>(||g' | sed 's|)</em></th>||g' | tr -d ' ')
+
+#UNCOMMENT THE FOLLOWING LINE IF YOU WANT TO USE THE EXPERIMENTAL TBB
+#BROWSER_VERSION=8.0a7
 
 PKG_VERSION=0.$(BROWSER_VERSION)
 
@@ -16,7 +21,7 @@ echo:
 	@echo "$(BROWSER_VERSION)"
 	sleep 3
 
-build: echo clean docker-browser browse docker-copy docker-clean unpack shasum sigsum checkinstall
+build: echo clean docker-browser browse docker-copy docker-clean unpack checkinstall shasum sigsum
 
 tbb.tar.xz:
 	/usr/bin/wget -q -c -O tbb.tar.xz "https://www.torproject.org/dist/torbrowser/"$(BROWSER_VERSION)"/tor-browser-linux64-"$(BROWSER_VERSION)"_en-US.tar.xz"
@@ -28,7 +33,12 @@ checksig: tbb.tar.xz
 	gpg --verify tbb.tar.xz.asc || rm tbb.tar.xz
 
 download: checksig
-	tar xf tbb.tar.xz
+	rm -rf $(browser) && mkdir -p $(browser)
+	cd $(browser) && \
+		tar xf ../tbb.tar.xz
+
+easy: download
+	./setup-i2p-browser ./browser/tor-browser_en-US
 
 cheater:
 	VARIANT=cheaters PORT=4444 make build
@@ -214,13 +224,13 @@ filter-cheater:
 
 filter-di:
 	git commit -am "Filtering large file from branch"; true
-	VARIANT=di PORT=4444 make filterbranch
+	VARIANT=di PORT=4443 make filterbranch
 	git gc --prune=now
 	git commit -am "Filtering large file from branch"; true
 
 filter-privoxy:
 	git commit -am "Filtering large file from branch"; true
-	VARIANT=privoxy PORT=4444 make filterbranch
+	VARIANT=privoxy PORT=8118 make filterbranch
 	git gc --prune=now
 	git commit -am "Filtering large file from branch"; true
 
