@@ -60,34 +60,28 @@ if [ -z "$i2pbrowser_directory" ]; then
 fi
 
 extension_overrides="$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/preferences/extension-overrides.js"
-sysprefs_location="$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/prefs.js"
+i2pbrowser_preferences="$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/preferences/i2p-browser.js"
 
 echo "modifying Tor Browser Bundle in: $i2pbrowser_directory for use with i2p.
     http port is set to $i2pbrowser_port
-    firefox preferences are in $sysprefs_location
+    firefox preferences are in $i2pbrowser_preferences
     extension preferences are in $extension_overrides
     " 1>&2
 
-grep -v torlauncher "$extension_overrides" > \
-    "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/preferences/temp.js"
-
-mv "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/preferences/temp.js" \
-    "$extension_overrides"
-
 echo "$i2pbrowser_append_extension_overrides" | tee -a "$extension_overrides"
 
-echo "$i2pbrowser_syspref_js" | tee "$sysprefs_location"
+echo "$i2pbrowser_syspref_js" | tee "$i2pbrowser_preferences"
 
-sed -i "s|4444|$i2pbrowser_port|g" "$sysprefs_location"
+sed -i "s|4444|$i2pbrowser_port|g" "$i2pbrowser_preferences"
 
 rm -r "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/extensions/"tor-launcher*.xpi \
     "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/extensions/"https*.xpi \
     "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.meek-http-helper"
 
-#mv "$i2pbrowser_directory/start-tor-browser.desktop" "$i2pbrowser_directory/start-i2p-browser.desktop"
-#mv "$i2pbrowser_directory/Browser/start-tor-browser.desktop" "$i2pbrowser_directory/Browser/start-i2p-browser.desktop"
-#mv "$i2pbrowser_directory/Browser/start-tor-browser" "$i2pbrowser_directory/Browser/start-i2p-browser"
+mv "$i2pbrowser_directory/start-tor-browser.desktop" "$i2pbrowser_directory/start-i2p-browser.desktop"
+mv "$i2pbrowser_directory/Browser/start-tor-browser.desktop" "$i2pbrowser_directory/Browser/start-i2p-browser.desktop"
+mv "$i2pbrowser_directory/Browser/start-tor-browser" "$i2pbrowser_directory/Browser/start-i2p-browser"
 
-#for f in $(find "$i2pbrowser_directory/tor-browser_en-US/" -name *.desktop); do
-    #sed -i 's|start-tor-browser|start-i2p-browser|g' $f;
-#done
+for f in $(find "$i2pbrowser_directory/" -name *.desktop); do
+    sed -i 's|start-tor-browser|start-i2p-browser|g' "$f";
+done

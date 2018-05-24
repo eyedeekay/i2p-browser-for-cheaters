@@ -44,12 +44,6 @@ RUN rm -f /home/anon/tor.tar.xz*
 COPY setup-i2p-browser.sh .
 RUN ./setup-i2p-browser.sh "/home/anon/tor-browser_en-US/" "$PORT"
 
-RUN mv /home/anon/tor-browser_en-US/start-tor-browser.desktop /home/anon/tor-browser_en-US/start-i2p-browser.desktop
-RUN mv /home/anon/tor-browser_en-US/Browser/start-tor-browser.desktop /home/anon/tor-browser_en-US/Browser/start-i2p-browser.desktop
-RUN mv /home/anon/tor-browser_en-US/Browser/start-tor-browser /home/anon/tor-browser_en-US/Browser/start-i2p-browser
-
-RUN for f in $(find /home/anon/tor-browser_en-US/ -name *.desktop); do sed -i 's|start-tor-browser|start-i2p-browser|g' $f; done
-
 RUN mkdir -p /home/anon/working
 
 RUN cp -r /home/anon/tor-browser_en-US/ /home/anon/working/i2p-browser_en-US/

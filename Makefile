@@ -90,7 +90,7 @@ docker-clobber-all:
 	docker rmi -f eyedeekay/cheatersi2p-browser eyedeekay/dii2p-browser
 
 clean:
-	rm -rf $(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz $(VARIANT)-i2p-browser_en-US $(VARIANT)-i2p-browser_$(PKG_VERSION)*.asc $(VARIANT)-i2p-browser_$(PKG_VERSION)*.deb $(VARIANT)-i2p-browser_$(PKG_VERSION)*.sha256sum
+	rm -rf $(VARIANT)*-i2p-browser_$(PKG_VERSION).tar.gz $(VARIANT)*-i2p-browser_en-US $(VARIANT)*-i2p-browser_$(PKG_VERSION)*.asc $(VARIANT)*-i2p-browser_$(PKG_VERSION)*.deb $(VARIANT)*-i2p-browser_$(PKG_VERSION)*.sha256sum
 
 unpack:
 	tar -xzf $(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz
@@ -235,3 +235,6 @@ cleanbranches:
 	git fsck --full --unreachable
 	git repack -A -d
 	git gc --aggressive --prune=now
+
+issue:
+	surf https://forums.whonix.org/t/i2p-integration/4981/130
