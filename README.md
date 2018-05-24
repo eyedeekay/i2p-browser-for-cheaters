@@ -57,7 +57,7 @@ Use at your own risk. It's torbrowser, less the Tor bits, pointed at localhost
 
 If you don't want to use a TBB downloaded by the makefile, running
 
-        ./setup-i2p-browser.sh "$path_to_browser" "desired-port"
+        ./setup-i2p-browser.sh "$path_to_browser" "$desired_port"
 
 will modify an existing TBB to use i2p.
 
