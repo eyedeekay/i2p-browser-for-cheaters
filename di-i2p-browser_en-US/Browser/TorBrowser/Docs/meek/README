@@ -41,9 +41,7 @@ Here is a summary of the programs that appear in subdirectories.
 
 appengine:
 Reflector web app that runs on Google App Engine. The reflector simply
-copies requests and responses to an instance of meek-server somewhere. A
-public instance of the App Engine web app is at
-https://meek-reflect.appspot.com/.
+copies requests and responses to an instance of meek-server somewhere.
 
 firefox:
 Browser extension for TLS camouflage.

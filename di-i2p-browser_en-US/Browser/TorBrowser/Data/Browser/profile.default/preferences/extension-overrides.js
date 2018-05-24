@@ -56,6 +56,11 @@ pref("noscript.restrictSubdocScripting", true);
 pref("noscript.showVolatilePrivatePermissionsToggle", false);
 pref("noscript.volatilePrivatePermissions", true);
 pref("noscript.clearClick", 0);
+
+# PDF.js
+// needs to be a user_pref because pdf.js blows away non-user prefs with its own
+// defaults each time
+user_pref("pdfjs.disableRange", true);
 # Tor Launcher preferences (default bridges):
 pref("extensions.torlauncher.default_bridge_recommended_type", "obfs4");
 
@@ -102,6 +107,7 @@ pref("extensions.torlauncher.default_bridge.obfs4.27", "obfs4 216.252.162.21:460
 pref("extensions.torlauncher.default_bridge.meek-amazon.1", "meek 0.0.2.0:2 B9E7141C594AF25699E0079C1F0146F409495296 url=https://d2cly7j4zqgua7.cloudfront.net/ front=a0.awsstatic.com");
 pref("extensions.torlauncher.default_bridge.meek-azure.1", "meek 0.0.2.0:3 97700DFE9F483596DDA6264C4D7DF7641E1E39CE url=https://meek.azureedge.net/ front=ajax.aspnetcdn.com");
 
+pref("extensions.torlauncher.default_bridge.snowflake.1", "snowflake 0.0.3.0:1 2B280B23E1107BB62ABFC40DDCC8824814F80A72");
 pref("extensions.torlauncher.prompt_for_locale", false);
 pref("intl.locale.matchOS", false);
 

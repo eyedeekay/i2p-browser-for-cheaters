@@ -5,12 +5,13 @@ UARCH ?= $(shell uname -m | tr '[:upper:]' '[:lower:]' | sed 's|x86_64|amd64|g')
 browser=$(PWD)/browser
 
 #COMMENT THE FOLLOWING LINE IF YOU WANT TO USE THE EXPERIMENTAL TBB
-BROWSER_VERSION=$(shell curl https://www.torproject.org/projects/torbrowser.html.en 2>&1 | grep '<th>GNU/Linux<br>' | sed 's|<th>GNU/Linux<br><em>(||g' | sed 's|)</em></th>||g' | tr -d ' ')
+#BROWSER_VERSION=$(shell curl https://www.torproject.org/projects/torbrowser.html.en 2>&1 | grep '<th>GNU/Linux<br>' | sed 's|<th>GNU/Linux<br><em>(||g' | sed 's|)</em></th>||g' | tr -d ' ')
 
-#UNCOMMENT THE FOLLOWING LINE IF YOU WANT TO USE THE EXPERIMENTAL TBB
-#BROWSER_VERSION=8.0a7
+#UNCOMMENT THE FOLLOWING LINES IF YOU WANT TO USE THE EXPERIMENTAL TBB
+EXPERIMENTAL=0.
+BROWSER_VERSION=8.0a7
 
-PKG_VERSION=0.$(BROWSER_VERSION)
+PKG_VERSION=0.$(EXPERIMENTAL)$(BROWSER_VERSION)
 
 DISPLAY = :0
 

@@ -1,13 +1,13 @@
 '\" t
 .\"     Title: meek-server
 .\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
-.\" Generator: DocBook XSL Stylesheets v1.78.1 <http://docbook.sf.net/>
-.\"      Date: 08/10/2014
+.\" Generator: DocBook XSL Stylesheets v1.79.1 <http://docbook.sf.net/>
+.\"      Date: 04/22/2017
 .\"    Manual: \ \&
 .\"    Source: \ \&
 .\"  Language: English
 .\"
-.TH "MEEK\-SERVER" "1" "08/10/2014" "\ \&" "\ \&"
+.TH "MEEK\-SERVER" "1" "04/22/2017" "\ \&" "\ \&"
 .\" -----------------------------------------------------------------
 .\" * Define some portability stuff
 .\" -----------------------------------------------------------------
@@ -31,39 +31,95 @@
 meek-server \- The meek server transport plugin
 .SH "SYNOPSIS"
 .sp
-\fBmeek\-server\fR \fB\-\-cert\fR=\fIFILENAME\fR \fB\-\-key\fR=\fIFILENAME\fR [\fIOPTIONS\fR]
+\fBmeek\-server\fR \fB\-\-acme\-hostnames\fR=\fIHOSTNAME\fR [\fIOPTIONS\fR]
 .SH "DESCRIPTION"
 .sp
 meek\-server is a transport plugin for Tor that encodes a stream as a sequence of HTTP requests and responses\&.
 .sp
-The server runs in HTTPS mode by default, and the \fB\-\-cert\fR and \fB\-\-key\fR options are required\&. Use the \fB\-\-disable\-tls\fR option to run with plain HTTP\&.
+You will need to configure TLS certificates\&. There are two ways to set up certificates:
 .sp
-Configuration for meek\-server usually appears in a torrc file\&. Here is a sample configuration using HTTPS:
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+\fB\-\-acme\-hostnames\fR=\fIHOSTNAME\fR
+(with optional
+\fB\-\-acme\-email\fR=\fIEMAIL\fR) will automatically get certificates for
+\fIHOSTNAME\fR
+using Let\(cqs Encrypt\&. This only works when meek\-server is running on port 443\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+\fB\-\-cert\fR=\fIFILENAME\fR
+and
+\fB\-\-key\fR=\fIFILENAME\fR
+allow use to use your own externally acquired certificate\&.
+.RE
+.sp
+Configuration for meek\-server usually appears in a torrc file\&. Here is a sample configuration using automatic Let\(cqs Encrypt certificates:
 .sp
 .if n \{\
 .RS 4
 .\}
 .nf
 ExtORPort auto
-ServerTransportPlugin meek exec \&./meek\-server \-\-port 8443 \-\-cert cert\&.pem \-\-key key\&.pem \-\-log meek\-server\&.log
+ServerTransportListenAddr 0\&.0\&.0\&.0:443
+ServerTransportPlugin meek exec \&./meek\-server \-\-acme\-hostnames meek\-server\&.example \-\-log meek\-server\&.log
 .fi
 .if n \{\
 .RE
 .\}
 .sp
-Here is a sample configuration using plain HTTP:
+Here is a sample configuration using externally acquired certificates:
 .sp
 .if n \{\
 .RS 4
 .\}
 .nf
 ExtORPort auto
-ServerTransportPlugin meek exec \&./meek\-server \-\-port 8080 \-\-disable\-tls \-\-log meek\-server\&.log
+ServerTransportListenAddr meek 0\&.0\&.0\&.0:8443
+ServerTransportPlugin meek exec \&./meek\-server 8443 \-\-cert cert\&.pem \-\-key key\&.pem \-\-log meek\-server\&.log
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+To listen on port 443 without needed to run as root, on Linux, you can use the setcap program, part of libcap2:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+setcap \*(Aqcap_net_bind_service=+ep\*(Aq /usr/local/bin/meek\-server
 .fi
 .if n \{\
 .RE
 .\}
 .SH "OPTIONS"
+.PP
+\fB\-\-acme\-email\fR=\fIEMAIL\fR
+.RS 4
+Optional email address to register for Let\(cqs Encrypt notifications when using
+\fB\-\-acme\-hostnames\fR\&.
+.RE
+.PP
+\fB\-\-acme\-hostnames\fR=\fIHOSTNAME\fR[,\fIHOSTNAME\fR]\&...
+.RS 4
+Comma\-separated list of hostnames to honor when getting automatic certificates from Let\(cqs Encrypt\&. meek\-server has to be running on port 443 in order for the
+\fB\-\-acme\-hostnames\fR
+option to work\&. The certificates will be cached in the pt_state/meek\-certificate\-cache directory inside tor state directory\&.
+.RE
 .PP
 \fB\-\-cert\fR=\fIFILENAME\fR
 .RS 4
@@ -72,7 +128,7 @@ Name of a PEM\-encoded TLS certificate file\&. Required unless
 is used\&.
 .RE
 .sp
-\fB\-\-disable\-tls\fR: Use plain HTTP rather than HTTPS\&.
+\fB\-\-disable\-tls\fR: Use plain HTTP rather than HTTPS\&. This option is only for testing purposes\&. Don\(cqt use it in production\&.
 .sp
 \fB\-\-key\fR=\fIFILENAME\fR: Name of a PEM\-encoded TLS private key file\&. Required unless \fB\-\-disable\-tls\fR is used\&.
 .PP
@@ -83,7 +139,11 @@ Name of a file to write log messages to (default stderr)\&.
 .PP
 \fB\-\-port\fR=\fIPORT\fR
 .RS 4
-Port to listen on\&. Overrides the TOR_PT_SERVER_BINDADDR environment variable set by tor\&.
+Port to listen on\&. Overrides the TOR_PT_SERVER_BINDADDR environment variable set by tor\&. In most cases you should set the
+\fBServerTransportListenAddr\fR
+option in torrc, rather than use the
+\fB\-\-port\fR
+option\&.
 .RE
 .PP
 \fB\-h\fR, \fB\-\-help\fR

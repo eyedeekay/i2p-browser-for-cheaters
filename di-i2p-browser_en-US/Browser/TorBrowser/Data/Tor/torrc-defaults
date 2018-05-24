@@ -22,4 +22,4 @@ ClientTransportPlugin obfs2,obfs3,obfs4,scramblesuit exec ./TorBrowser/Tor/Plugg
 ClientTransportPlugin meek exec ./TorBrowser/Tor/PluggableTransports/meek-client-torbrowser -- ./TorBrowser/Tor/PluggableTransports/meek-client
 
 ## snowflake configuration
-ClientTransportPlugin snowflake exec ./TorBrowser/Tor/PluggableTransports/snowflake-client -url https://snowflake-reg.appspot.com/ -front www.google.com -ice stun:stun.l.google.com:19302
+ClientTransportPlugin snowflake exec ./TorBrowser/Tor/PluggableTransports/snowflake-client -url https://snowflake-broker.azureedge.net/ -front ajax.aspnetcdn.com -ice stun:stun.l.google.com:19302
