@@ -5,11 +5,11 @@ UARCH ?= $(shell uname -m | tr '[:upper:]' '[:lower:]' | sed 's|x86_64|amd64|g')
 browser=$(PWD)/browser
 
 #COMMENT THE FOLLOWING LINE IF YOU WANT TO USE THE EXPERIMENTAL TBB
-#BROWSER_VERSION=$(shell curl https://www.torproject.org/projects/torbrowser.html.en 2>&1 | grep '<th>GNU/Linux<br>' | sed 's|<th>GNU/Linux<br><em>(||g' | sed 's|)</em></th>||g' | tr -d ' ')
+BROWSER_VERSION=$(shell curl https://www.torproject.org/projects/torbrowser.html.en 2>&1 | grep '<th>GNU/Linux<br>' | sed 's|<th>GNU/Linux<br><em>(||g' | sed 's|)</em></th>||g' | tr -d ' ')
 
 #UNCOMMENT THE FOLLOWING LINES IF YOU WANT TO USE THE EXPERIMENTAL TBB
-EXPERIMENTAL=0.
-BROWSER_VERSION=8.0a7
+#EXPERIMENTAL=0.
+#BROWSER_VERSION=8.0a7
 
 DEFAULT_PORT=4444
 DEFAULT_ADDR=127.0.0.1
@@ -22,27 +22,32 @@ all: cheater di privoxy
 
 echo:
 	@echo "Building variant: $(VARIANT):$(PORT)"
-	@echo "$(BROWSER_VERSION)"
+	@echo "$(BROWSER_VERSION) $(PKG_VERSION)"
 	sleep 3
 
 build: echo clean docker-browser browse docker-copy docker-clean unpack checkinstall shasum sigsum
 
-tbb.tar.xz:
-	/usr/bin/wget -q -c -O tbb.tar.xz "https://www.torproject.org/dist/torbrowser/"$(BROWSER_VERSION)"/tor-browser-linux64-"$(BROWSER_VERSION)"_en-US.tar.xz"
-	/usr/bin/wget -c -O tbb.tar.xz.asc "https://www.torproject.org/dist/torbrowser/"$(BROWSER_VERSION)"/tor-browser-linux64-"$(BROWSER_VERSION)"_en-US.tar.xz.asc"
+torbrowser: tbb$(BROWSER_VERSION).tar.xz
 
-checksig: tbb.tar.xz
+tbb$(BROWSER_VERSION).tar.xz:
+	/usr/bin/wget -q -c -O tbb$(BROWSER_VERSION).tar.xz "https://www.torproject.org/dist/torbrowser/"$(BROWSER_VERSION)"/tor-browser-linux64-"$(BROWSER_VERSION)"_en-US.tar.xz"
+	/usr/bin/wget -c -O tbb$(BROWSER_VERSION).tar.xz.asc "https://www.torproject.org/dist/torbrowser/"$(BROWSER_VERSION)"/tor-browser-linux64-"$(BROWSER_VERSION)"_en-US.tar.xz.asc"
+
+checksig: torbrowser
 	gpg --keyserver ha.pool.sks-keyservers.net \
       --recv-keys "EF6E 286D DA85 EA2A 4BA7  DE68 4E2C 6E87 9329 8290"
-	gpg --verify tbb.tar.xz.asc || rm tbb.tar.xz
+	gpg --verify tbb$(BROWSER_VERSION).tar.xz.asc || rm tbb$(BROWSER_VERSION).tar.xz
 
 download: checksig
 	rm -rf $(browser) && mkdir -p $(browser)
 	cd $(browser) && \
-		tar xf ../tbb.tar.xz
+		tar xf ../tbb$(BROWSER_VERSION).tar.xz
 
 easy: download
 	./setup-i2p-browser.sh ./browser/tor-browser_en-US $(DEFAULT_PORT) $(DEFAULT_ADDR)
+
+run:
+	$(browser)/tor-browser_en-US/Browser/start-i2p-browser
 
 cheater:
 	VARIANT=cheaters PORT=4444 make build
