@@ -14,23 +14,27 @@ BROWSER_VERSION=$(shell curl https://www.torproject.org/projects/torbrowser.html
 DEFAULT_PORT=4444
 DEFAULT_ADDR=127.0.0.1
 
+VARIANT?=cheaters
+PORT?=$(DEFAULT_PORT)
+
 PKG_VERSION=0.$(EXPERIMENTAL)$(BROWSER_VERSION)
 
 DISPLAY = :0
+
+TOR_CONTROL_IPC_PATH=/var/run/cheater-i2p-browser_en-US/i2p.sock
 
 all: cheater di privoxy
 
 echo:
 	@echo "Building variant: $(VARIANT):$(PORT)"
-	@echo "$(BROWSER_VERSION) $(PKG_VERSION)"
-	sleep 3
+	@echo "$(BROWSER_VERSION) $(PKG_VERSION) $(browser)"
 
 build: echo clean docker-browser browse docker-copy docker-clean unpack checkinstall shasum sigsum
 
 torbrowser: tbb$(BROWSER_VERSION).tar.xz
 
 tbb$(BROWSER_VERSION).tar.xz:
-	/usr/bin/wget -q -c -O tbb$(BROWSER_VERSION).tar.xz "https://www.torproject.org/dist/torbrowser/"$(BROWSER_VERSION)"/tor-browser-linux64-"$(BROWSER_VERSION)"_en-US.tar.xz"
+	/usr/bin/wget -c -O tbb$(BROWSER_VERSION).tar.xz "https://www.torproject.org/dist/torbrowser/"$(BROWSER_VERSION)"/tor-browser-linux64-"$(BROWSER_VERSION)"_en-US.tar.xz"
 	/usr/bin/wget -c -O tbb$(BROWSER_VERSION).tar.xz.asc "https://www.torproject.org/dist/torbrowser/"$(BROWSER_VERSION)"/tor-browser-linux64-"$(BROWSER_VERSION)"_en-US.tar.xz.asc"
 
 checksig: torbrowser
@@ -109,14 +113,11 @@ docker-clobber-all:
 	docker rmi -f eyedeekay/cheatersi2p-browser eyedeekay/dii2p-browser
 
 clean:
-	rm -rf $(VARIANT)*-i2p-browser_$(PKG_VERSION).tar.gz $(VARIANT)*-i2p-browser_en-US $(VARIANT)*-i2p-browser_$(PKG_VERSION)*.asc $(VARIANT)*-i2p-browser_$(PKG_VERSION)*.deb $(VARIANT)*-i2p-browser_$(PKG_VERSION)*.sha256sum
+	rm -rf $(VARIANT)*-i2p-browser_$(PKG_VERSION).tar.gz $(VARIANT)*-i2p-browser_en-US $(VARIANT)*-i2p-browser_$(PKG_VERSION)*.asc $(VARIANT)*-i2p-browser_$(PKG_VERSION)*.deb $(VARIANT)*-i2p-browser_$(PKG_VERSION)*.sha256sum $(browser)/*
 
 unpack:
 	tar -xzf $(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz
 	mv i2p-browser_en-US $(VARIANT)-i2p-browser_en-US
-
-run:
-	./i2p-browser_en-US/Browser/start-i2p-browser
 
 shasum:
 	sha256sum $(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz 2>&1 | tee $(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz.sha256sum
@@ -128,11 +129,12 @@ user:
 	adduser --home /var/lib/$(VARIANT)-i2p-browser_en-US --disabled-login --disabled-password --gecos ',,,,' i2pbrowser; true
 
 install: user
-	rm -rf /var/lib/$(VARIANT)-i2p-browser_en-US
+	rm -rf /var/lib/$(VARIANT)-i2p-browser_en-US /var/run/$(VARIANT)-i2p-browser_en-US
+	mkdir -p /var/run/$(VARIANT)-i2p-browser_en-US
 	cp -Rv $(VARIANT)-i2p-browser_en-US /var/lib/$(VARIANT)-i2p-browser_en-US
 	install -m755 bin/$(VARIANT)-i2p-browser /usr/bin/$(VARIANT)-i2p-browser
-	ln -s /usr/bin/$(VARIANT)-i2p-browser /usr/bin/$(VARIANT)i2pbrowser
-	chown -R i2pbrowser /var/lib/$(VARIANT)-i2p-browser_en-US
+	ln -sf /usr/bin/$(VARIANT)-i2p-browser /usr/bin/$(VARIANT)i2pbrowser
+	chown -R i2pbrowser /var/lib/$(VARIANT)-i2p-browser_en-US /var/run/$(VARIANT)-i2p-browser_en-US
 	chmod -R o-rwx /var/lib/$(VARIANT)-i2p-browser_en-US
 	chmod a+x /usr/bin/start-i2p-browser
 
@@ -257,3 +259,6 @@ cleanbranches:
 
 issue:
 	surf https://forums.whonix.org/t/i2p-integration/4981/140
+
+socket:
+	./bin/assure-socket-$(VARIANT)
