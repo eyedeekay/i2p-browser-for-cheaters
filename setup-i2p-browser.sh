@@ -13,9 +13,16 @@
 #       #local or isolated i2p http proxy
 #    source ./setup-i2p-browser.sh
 
+# to use a socket instead,
+#    export i2pbrowser_socket="path_to_socket"
+#       #point at the socket path
+#    source ./setup-i2p-browser.sh
+
 ## from the terminal:
 
 #    ./setup-i2p-browser.sh "path_to_tbb"(required) "4444"(optional) "127.0.0.1(default)"
+# or
+#    ./setup-i2p-browser.sh "path_to_tbb"(required) socket "path_to_socket"(optional, default may not be sane)
 
 i2pbrowser_syspref_js="
 pref(\"network.proxy.no_proxies_on\", 0);
@@ -61,12 +68,18 @@ if [ ! -z "$1" ]; then
     i2pbrowser_directory=$(validate_i2pbrowser_directory "$1")
 fi
 
+if [ ! -z "$i2pbrowser_socket" ]; then
+    socket=true
+    echo "using socket configuration, http proxy settings will be ignored" 1>&2
+fi
+
 if [ ! -z "$2" ]; then
-    #if [ "$2" == "socket" ]; then
-        #socket=true
-        #echo "using socket configuration, http proxy settings will be ignored" 1>&2
-    #fi
-    i2pbrowser_port="$2"
+    if "$2" == "socket"; then
+        socket=true
+        echo "using socket configuration, http proxy settings will be ignored" 1>&2
+    else
+        i2pbrowser_port="$2"
+    fi
 else
     if [ -z "$i2pbrowser_port" ]; then
         i2pbrowser_port="4444"
@@ -74,10 +87,11 @@ else
 fi
 
 if [ ! -z "$3" ]; then
-    #if [ socket ]; then
-        #i2pbrowser_socket="$3"
-    #fi
-    i2pbrowser_addr="$3"
+    if [ socket ]; then
+        i2pbrowser_socket="$3"
+    else
+        i2pbrowser_addr="$3"
+    fi
 else
     if [ -z "$i2pbrowser_addr" ]; then
         i2pbrowser_addr="127.0.0.1"
@@ -98,19 +112,24 @@ echo "modifying Tor Browser Bundle in: $i2pbrowser_directory for use with i2p.
     extension preferences are in $extension_overrides
     " 1>&2
 
-echo "$i2pbrowser_append_extension_overrides" | tee -a "$extension_overrides"
+echo "$i2pbrowser_append_extension_overrides" >> "$extension_overrides"
 
 echo "$i2pbrowser_syspref_js" > "$i2pbrowser_preferences"
 
-#if [ socket ]; then
-    #sed -i "s|/var/run/cheaters-i2p-browser_en-US/i2p.sock|$i2pbrowser_socket|g" "$extension_overrides"
-    #sed -i 's|pref("network.proxy.type"|//pref("network.proxy.type"|g' "$i2pbrowser_preferences"
-    #sed -i 's|pref("network.proxy.http"|//pref("network.proxy.http"|g' "$i2pbrowser_preferences"
-    #sed -i 's|pref("network.proxy.http_port"|//pref("network.proxy.http_port"|g' "$i2pbrowser_preferences"
-#else
+if [ socket ]; then
+    sed -i "s|/var/run/cheaters-i2p-browser_en-US/i2p.sock|$i2pbrowser_socket|g" "$extension_overrides"
+    sed -i 's|//pref("extensions.torlauncher.socks_port_use_ipc"|pref("extensions.torlauncher.socks_port_use_ipc"|g' "$extension_overrides"
+    sed -i 's|//pref("extensions.torlauncher.socks_ipc_path"|pref("extensions.torlauncher.socks_ipc_path"|g' "$extension_overrides"
+
+    sed -i 's|pref("network.proxy.type"|//pref("network.proxy.type"|g' "$i2pbrowser_preferences"
+    sed -i 's|pref("network.proxy.http"|//pref("network.proxy.http"|g' "$i2pbrowser_preferences"
+    sed -i 's|pref("network.proxy.http_port"|//pref("network.proxy.http_port"|g' "$i2pbrowser_preferences"
+else
     sed -i "s|4444|$i2pbrowser_port|g" "$i2pbrowser_preferences"
     sed -i "s|127.0.0.1|$i2pbrowser_addr|g" "$i2pbrowser_preferences"
-#fi
+fi
+
+tail -n 10 "$extension_overrides"
 
 cat "$i2pbrowser_preferences"
 

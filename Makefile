@@ -50,6 +50,9 @@ download: checksig
 easy: download
 	./setup-i2p-browser.sh ./browser/tor-browser_en-US $(DEFAULT_PORT) $(DEFAULT_ADDR)
 
+easysocket: download
+	./setup-i2p-browser.sh ./browser/tor-browser_en-US "socket"
+
 run:
 	$(browser)/tor-browser_en-US/Browser/start-i2p-browser
 
