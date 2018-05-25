@@ -17,7 +17,7 @@ else's. Need to keep track of what's going on.
 The bulk of the work is being done by [this script shell script now](https://github.com/eyedeekay/i2p-browser-for-cheaters/blob/master/setup-i2p-browser.sh).
 If you just want to modify a TBB to work with i2p, you can:
 
-        ./setup-i2p-browser.sh "$path_to_browser" "$desired_port"
+        ./setup-i2p-browser.sh "$path_to_browser" "$desired_port" "$desired_addr"
 
 Here is, in some detail, what it does:
 
@@ -128,10 +128,18 @@ proxy. That probably means I should rename ./setup-i2p-browser.sh to
 ./setup-proxy-browser.sh or something like that.
 
 If one wants to, at some point, create an i2p browser bundle, then one will need
-something like TorLauncher to make sure that i2p starts.
+something like TorLauncher to make sure that i2p starts. One thing it will need
+to be able to do is determine that i2p has been started and the tunnels are
+opened. I think the easiest way to do this would probably be to create tiny
+service that translates the Tor Control Port communcations done by TorLauncher
+and TorButton to and from the i2pControl equivalents. Possibly more.
+
+An instructive, but possible old, article about the Tor Control Protocol can be
+found here.
 
 Pretty soon, it seems that TBB may only work over the Unix socket, so I'll need
-to deal with that.
+to deal with that. If I do something with the Control Port and i2pControl, then
+I'll have to do that too. Fortunately, it's easy.
 
 I'm not at all sure what i2p's plans for HTTPS are yet, but I'm aware of some. I
 don't change the NoScript configuration and frankly, There is plenty I could

@@ -29,9 +29,11 @@ i2pbrowser_append_extension_overrides="
 pref(\"extensions.https_everywhere._observatory.enabled\", false);
 pref(\"extensions.https_everywhere.autoUpdateRulesets\", false);
 
+pref(\"extensions.torbutton.use_nontor_proxy\", true);
+
 //For socket conversion: in the future, I'll need to make TBB communicate with
-//i2p over a unix socket. Fortunately, this is how you do that.
-//pref(\"extensions.torbutton.use_nontor_proxy\", true);
+//i2p over a unix socket. Fortunately, this is how you do that. It will be
+//configurable in a similar way to the host:port configuration when that happens.
 //pref(\"extensions.torlauncher.socks_port_use_ipc\", true);
 //pref(\"extensions.torlauncher.socks_ipc_path\", \"/var/run/cheaters-i2p-browser_en-US/i2p.sock\");
 
@@ -97,14 +99,12 @@ sed -i "s|4444|$i2pbrowser_port|g" "$i2pbrowser_preferences"
 
 sed -i "s|127.0.0.1|$i2pbrowser_addr|g" "$i2pbrowser_preferences"
 
-cat "$i2pbrowser_preferences"
+#sed -i "s|/var/run/cheaters-i2p-browser_en-US/i2p.sock|$i2pbrowser_socket|g" "$extension_overrides"
 
-rm -r "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.meek-http-helper"
+cat "$i2pbrowser_preferences"
 
 mv "$i2pbrowser_directory/start-tor-browser.desktop" "$i2pbrowser_directory/start-i2p-browser.desktop"
 mv "$i2pbrowser_directory/Browser/start-tor-browser.desktop" "$i2pbrowser_directory/Browser/start-i2p-browser.desktop"
 mv "$i2pbrowser_directory/Browser/start-tor-browser" "$i2pbrowser_directory/Browser/start-i2p-browser"
 
-for f in $(find "$i2pbrowser_directory/" -name *.desktop); do
-    sed -i 's|start-tor-browser|start-i2p-browser|g' "$f";
-done
+find "$i2pbrowser_directory/" -name '*.desktop' -exec sed -i 's|start-tor-browser|start-i2p-browser|g' {} \;

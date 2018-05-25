@@ -128,7 +128,7 @@ sigsum:
 user:
 	adduser --home /var/lib/$(VARIANT)-i2p-browser_en-US --disabled-login --disabled-password --gecos ',,,,' i2pbrowser; true
 
-install: user
+install:
 	rm -rf /var/lib/$(VARIANT)-i2p-browser_en-US /var/run/$(VARIANT)-i2p-browser_en-US
 	mkdir -p /var/run/$(VARIANT)-i2p-browser_en-US
 	cp -Rv $(VARIANT)-i2p-browser_en-US /var/lib/$(VARIANT)-i2p-browser_en-US
