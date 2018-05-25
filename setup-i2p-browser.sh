@@ -19,10 +19,10 @@
 
 i2pbrowser_syspref_js="
 pref(\"network.proxy.no_proxies_on\", 0);
+pref(\"network.proxy.share_proxy_settings\", true);
 pref(\"network.proxy.type\", 1);
 pref(\"network.proxy.http\", \"127.0.0.1\");
 pref(\"network.proxy.http_port\", 4444);
-pref(\"network.proxy.share_proxy_settings\", true);
 "
 
 i2pbrowser_append_extension_overrides="
@@ -62,6 +62,10 @@ if [ ! -z "$1" ]; then
 fi
 
 if [ ! -z "$2" ]; then
+    #if [ "$2" == "socket" ]; then
+        #socket=true
+        #echo "using socket configuration, http proxy settings will be ignored" 1>&2
+    #fi
     i2pbrowser_port="$2"
 else
     if [ -z "$i2pbrowser_port" ]; then
@@ -70,6 +74,9 @@ else
 fi
 
 if [ ! -z "$3" ]; then
+    #if [ socket ]; then
+        #i2pbrowser_socket="$3"
+    #fi
     i2pbrowser_addr="$3"
 else
     if [ -z "$i2pbrowser_addr" ]; then
@@ -95,11 +102,15 @@ echo "$i2pbrowser_append_extension_overrides" | tee -a "$extension_overrides"
 
 echo "$i2pbrowser_syspref_js" > "$i2pbrowser_preferences"
 
-sed -i "s|4444|$i2pbrowser_port|g" "$i2pbrowser_preferences"
-
-sed -i "s|127.0.0.1|$i2pbrowser_addr|g" "$i2pbrowser_preferences"
-
-#sed -i "s|/var/run/cheaters-i2p-browser_en-US/i2p.sock|$i2pbrowser_socket|g" "$extension_overrides"
+#if [ socket ]; then
+    #sed -i "s|/var/run/cheaters-i2p-browser_en-US/i2p.sock|$i2pbrowser_socket|g" "$extension_overrides"
+    #sed -i 's|pref("network.proxy.type"|//pref("network.proxy.type"|g' "$i2pbrowser_preferences"
+    #sed -i 's|pref("network.proxy.http"|//pref("network.proxy.http"|g' "$i2pbrowser_preferences"
+    #sed -i 's|pref("network.proxy.http_port"|//pref("network.proxy.http_port"|g' "$i2pbrowser_preferences"
+#else
+    sed -i "s|4444|$i2pbrowser_port|g" "$i2pbrowser_preferences"
+    sed -i "s|127.0.0.1|$i2pbrowser_addr|g" "$i2pbrowser_preferences"
+#fi
 
 cat "$i2pbrowser_preferences"
 
