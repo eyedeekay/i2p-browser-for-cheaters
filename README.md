@@ -36,11 +36,15 @@ Everywhere to not try and use resources on the clearnet.
 
         pref("extensions.torbutton.use_nontor_proxy", true);
 
+[source](https://gitweb.torproject.org/torbutton.git/tree/src/defaults/preferences/preferences.js)
+
 ### TorLauncher settings
 
         pref("extensions.torlauncher.start_tor", false);
         pref("extensions.torlauncher.default_bridge_type", "");
         pref("extensions.torlauncher.prompt_at_startup", false);
+
+[source](https://gitweb.torproject.org/tor-launcher.git/tree/src/defaults/preferences/prefs.js)
 
 After applying the extension modifications, it applies the i2p http proxy
 settings. In particular, it points the http proxy at 127.0.0.1:4444, it sets the
