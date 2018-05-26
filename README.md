@@ -7,7 +7,10 @@ All it does it take the standard Tor Browser Bundle, applies custom settings to
 torlauncher, torbutton, and HTTPS everywhere(I've disabled the observatory and
 automatic updates for now,for now, until I learn more about HTTPS everywhere
 rulesets and how they work/[worked](https://github.com/chris-barry/darkweb-everywhere)
-with i2p).
+with i2p). HTTPS everywhere may or may not be honoring the autoUpdateRuleset
+option I thought it had. For now I'm setting a custom proxy in common with i2p,
+so it won't be able to complete the update via the clearnet by accident. It does
+appear to be honoring the observatory settings at this time.
 
 By the way, these notes are, at this point, as much for my benefit as anybody
 else's. Need to keep track of what's going on.
@@ -31,6 +34,12 @@ Everywhere to not try and use resources on the clearnet.
 
         pref("extensions.https_everywhere._observatory.enabled", false);
         pref("extensions.https_everywhere._options.autoUpdateRulesets", false);
+        pref("extensions.https_everywhere.globalEnabled", false);
+        pref("extensions.https_everywhere._observatory.submit_during_tor", false);
+        pref("extensions.https_everywhere._observatory.submit_during_nontor", false);
+        pref("extensions.https_everywhere._observatory.use_custom_proxy", true);
+        pref("extensions.https_everywhere._observatory.proxy_host", "127.0.0.1");
+        pref("extensions.https_everywhere._observatory.proxy_port", 4444);
 
 ### TorButton settings
 

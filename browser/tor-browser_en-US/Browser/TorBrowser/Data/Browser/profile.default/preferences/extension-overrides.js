@@ -107,6 +107,9 @@ pref("intl.locale.matchOS", false);
 
 pref("extensions.https_everywhere._observatory.enabled", false);
 pref("extensions.https_everywhere._options.autoUpdateRulesets", false);
+pref("extensions.https_everywhere.globalEnabled", false);
+pref("extensions.https_everywhere._observatory.submit_during_tor", false);
+pref("extensions.https_everywhere._observatory.submit_during_nontor", false);
 
 pref("extensions.torbutton.use_nontor_proxy", true);
 

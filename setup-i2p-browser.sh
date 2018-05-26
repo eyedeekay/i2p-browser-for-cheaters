@@ -34,7 +34,13 @@ pref(\"network.proxy.http_port\", 4444);
 
 i2pbrowser_append_extension_overrides="
 pref(\"extensions.https_everywhere._observatory.enabled\", false);
-pref(\"extensions.https_everywhere._options.autoUpdateRulesets\", false);
+pref(\"extensions.https_everywhere.options.autoUpdateRulesets\", false);
+pref(\"extensions.https_everywhere.globalEnabled\", false);
+pref(\"extensions.https_everywhere._observatory.submit_during_tor\", false);
+pref(\"extensions.https_everywhere._observatory.submit_during_nontor\", false);
+pref(\"extensions.https_everywhere._observatory.use_custom_proxy\",true);
+pref(\"extensions.https_everywhere._observatory.proxy_host\", \"127.0.0.1\");
+pref(\"extensions.https_everywhere._observatory.proxy_port\", 4444);
 
 pref(\"extensions.torbutton.use_nontor_proxy\", true);
 
@@ -129,7 +135,7 @@ else
     sed -i "s|127.0.0.1|$i2pbrowser_addr|g" "$i2pbrowser_preferences"
 fi
 
-tail -n 10 "$extension_overrides"
+tail -n 18 "$extension_overrides"
 
 cat "$i2pbrowser_preferences"
 
