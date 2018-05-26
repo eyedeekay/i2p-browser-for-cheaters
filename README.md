@@ -41,6 +41,12 @@ Everywhere to not try and use resources on the clearnet.
         pref("extensions.https_everywhere._observatory.proxy_host", "127.0.0.1");
         pref("extensions.https_everywhere._observatory.proxy_port", 4444);
 
+#### Desired HTTPS Everywhere setting(From browser-extension-data)
+
+Browser/TorBrowser/Data/Browser/profile.default/browser-extension-data/https-everywhere-eff@eff.org/storage.js
+
+        {"ruleActiveStates":{},"migration_version":1,"last-checked":1527339686.4,"autoUpdateRulesets":false}
+
 ### TorButton settings
 
         pref("extensions.torbutton.use_nontor_proxy", true);
