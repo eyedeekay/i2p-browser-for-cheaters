@@ -74,7 +74,7 @@ if [ ! -z "$i2pbrowser_socket" ]; then
 fi
 
 if [ ! -z "$2" ]; then
-    if "$2" == "socket"; then
+    if [ "$2" = "socket" ]; then
         socket=true
         echo "using socket configuration, http proxy settings will be ignored" 1>&2
     else
