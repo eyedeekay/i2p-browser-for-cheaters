@@ -30,7 +30,7 @@ Everywhere to not try and use resources on the clearnet.
 ### HTTPS Everywhere settings
 
         pref("extensions.https_everywhere._observatory.enabled", false);
-        pref("extensions.https_everywhere.autoUpdateRulesets", false);
+        pref("extensions.https_everywhere._options.autoUpdateRulesets", false);
 
 ### TorButton settings
 

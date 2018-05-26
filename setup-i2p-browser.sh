@@ -34,7 +34,7 @@ pref(\"network.proxy.http_port\", 4444);
 
 i2pbrowser_append_extension_overrides="
 pref(\"extensions.https_everywhere._observatory.enabled\", false);
-pref(\"extensions.https_everywhere.autoUpdateRulesets\", false);
+pref(\"extensions.https_everywhere._options.autoUpdateRulesets\", false);
 
 pref(\"extensions.torbutton.use_nontor_proxy\", true);
 
@@ -75,7 +75,7 @@ fi
 
 if [ ! -z "$2" ]; then
     if [ "$2" = "socket" ]; then
-        socket=true
+        socket="true"
         echo "using socket configuration, http proxy settings will be ignored" 1>&2
     else
         i2pbrowser_port="$2"
@@ -87,7 +87,7 @@ else
 fi
 
 if [ ! -z "$3" ]; then
-    if [ socket ]; then
+    if [ "$socket" = "true" ]; then
         i2pbrowser_socket="$3"
     else
         i2pbrowser_addr="$3"
@@ -116,7 +116,7 @@ echo "$i2pbrowser_append_extension_overrides" >> "$extension_overrides"
 
 echo "$i2pbrowser_syspref_js" > "$i2pbrowser_preferences"
 
-if [ socket ]; then
+if [ "$socket" = "true" ]; then
     sed -i "s|/var/run/cheaters-i2p-browser_en-US/i2p.sock|$i2pbrowser_socket|g" "$extension_overrides"
     sed -i 's|//pref("extensions.torlauncher.socks_port_use_ipc"|pref("extensions.torlauncher.socks_port_use_ipc"|g' "$extension_overrides"
     sed -i 's|//pref("extensions.torlauncher.socks_ipc_path"|pref("extensions.torlauncher.socks_ipc_path"|g' "$extension_overrides"
