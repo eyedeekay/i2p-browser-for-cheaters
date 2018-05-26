@@ -1,53 +1,13 @@
-Tor Browser 8.0a7 -- May 9 2018
+Tor Browser 7.5.4 -- May 9 2018
  * All platforms
    * Update Firefox to 52.8.0esr
-   * Update Tor Launcher to 0.2.15.2
-     * Bug 25807: Change front domain to unbreak Moat
-     * Translations update
-   * Bug 25973: Backport off-by-one fix (bug 1352073)
-   * Bug 25938: Backport fix for cross-origin header leak (bug 1334776)
-   * Bug 25458: Fix broken UI customization
-   * Bug 25898: Make Youtube videos play automatically again
-   * Bug 25980: Improve backport of bug 1448771 (fixes broken Orfox build)
- * OS X
-   * Bug 26010: Change Snowflake rendezvous to use the Azure domain front
- * Linux
-   * Bug 26010: Change Snowflake rendezvous to use the Azure domain front
-
-Tor Browser 8.0a6 -- April 19 2018
- * All platforms
-   * Update Tor to 0.3.3.5-rc
-   * Update OpenSSL to 1.0.2o
-   * Update Torbutton to 1.9.9.1
-     * Bug 25126: Make about:tor layout responsive
-     * Translations update
    * Update HTTPS Everywhere to 2018.4.11
    * Update NoScript to 5.1.8.5
-   * Bug 21537: Mark .onion cookies as secure
-   * Bug 21850: Update about:tbupdate handling for e10s
-   * Bug 25721: Backport patches from Mozilla's bug 1448771
- * Linux
-   * Bug 20283: Tor Browser should run without a `/proc` filesystem.
- * Windows
-   * Bug 13893: Make EMET compatible with Tor Browser
- * Build System
-   * Windows
-     * Bug 25420: Update GCC to 6.4.0
-     * Bug 20302: Fix FTE compilation for Windows with GCC 6.4.0
-   * Linux
-     * Bug 25304: Update GCC to 6.4.0
-
-Tor Browser 8.0a5 -- March 27 2018
- * All platforms
-   * Update Firefox to 52.7.3esr
-   * Update HTTPS Everywhere to 2018.3.13
    * Bug 23439: Exempt .onion domains from mixed content warnings
- * OS X
-   * Update Snowflake
-     * Bug 21312+25579+25449: Fix crashes and memory/file descriptor leaks in go-webrtc
- * Linux
-   * Update Snowflake
-     * Bug 21312+25579+25449: Fix crashes and memory/file descriptor leaks in go-webrtc
+   * Bug 22614: Make e10s/non-e10s Tor Browsers indistinguishable
+   * Bug 22659: Changes to `intl.accept.languages` get overwritten after restart
+   * Bug 25973: Backport off-by-one fix (bug 1352073)
+   * Bug 25020: Add a tbb_version.json file
 
 Tor Browser 7.5.3 -- March 26 2018
  * All platforms
@@ -55,27 +15,9 @@ Tor Browser 7.5.3 -- March 26 2018
    * Update HTTPS Everywhere to 2018.3.13
      * Bug 25339: Adapt build system for Python 3.6 based build procedure
 
-Tor Browser 8.0a4 -- March 17 2018
- * All platforms
-   * Update Firefox to 52.7.2esr
-
 Tor Browser 7.5.2 -- March 17 2018
  * All platforms
    * Update Firefox to 52.7.2esr
-
-Tor Browser 8.0a3 -- March 13 2018
- * All platforms
-   * Update Firefox to 52.7.0esr
-   * Update Tor to 0.3.3.3-alpha
-   * Update Tor Launcher to 0.2.15.1
-     * Bug 23136: Moat integration (fetch bridges for the user)
-     * Translations update
-   * Update HTTPS Everywhere to 2018.2.26
-     * Bug 25339: Adapt build system for Python 3.6 based build procedure
-   * Bug 25356: Update obfs4proxy to v0.0.7
-   * Bug 25147: Sanitize HTML fragments created for chrome-privileged documents
- * Windows
-   * Bug 25112: No sandboxing on 64-bit Windows <= Vista
 
 Tor Browser 7.5.1 -- March 13 2018
  * All platforms
@@ -93,61 +35,6 @@ Tor Browser 7.5.1 -- March 13 2018
    * Bug 25000: Add [System+Principal] to the NoScript whitelist
  * Windows
    * Bug 25112: Disable sandboxing on 64-bit Windows <= Vista
-
-Tor Browser 8.0a2 -- February 23 2018
- * All Platforms
-   * Update Tor to 0.3.3.2-alpha
-   * Update Torbutton to 1.9.9
-     * Bug 24159: Version check does not deal with platform specific checks
-     * Bug 25016: Remove 2017 donation banner
-     * Translations update
-   * Update Tor Launcher to 0.2.15
-     * Bug 25089: Special characters are not escaped in proxy password
-     * Translations update
-   * Update HTTPS Everywhere to 2018.1.29
-   * Update NoScript to 5.1.8.4
-   * Update meek to 0.29
-   * Bug 25215: Revert bug 18619 (we are not disabling IndexedDB any longer)
-   * Bug 19910: Rip out optimistic data socks handshake variant (#3875)
-   * Bug 22659: Changes to `intl.accept.languages` get overwritten after restart
-   * Bug 25000: Add [System+Principal] to the NoScript whitelist
-   * Bug 15599: Disable Range requests used by pdfjs as they are not isolated
-   * Bug 22614: Make e10s/non-e10s Tor Browsers indistinguishable
-   * Bug 13575: Disable randomised Firefox HTTP cache decay user tests
-   * Bug 25020: Add a tbb_version.json file
-   * Bug 24995: Include git hash in tor --version
- * OS X
-   * Bug 22794: Don't open AF_INET/AF_INET6 sockets when AF_LOCAL is configured
- * Linux
-   * Bug 22794: Don't open AF_INET/AF_INET6 sockets when AF_LOCAL is configured
- * Windows:
-   * Bug 25266: PT config should include full names of executable files
- * Build System
-   * Windows
-     * Bug 25111: Don't compile Yasm on our own anymore for Windows Tor Browser
-
-Tor Browser 8.0a1 -- January 23 2018
- * All Platforms
-   * Update Firefox to 52.6.0esr
-   * Update Tor to 0.3.2.9
-   * Update Torbutton to 1.9.8.5
-     * Bug 21245: Add da translation to Torbutton and keep track of it
-     * Bug 24702: Remove Mozilla text from banner
-     * Translations update
-   * Update Tor Launcher to 0.2.14.3
-     * Translations update
-   * Update HTTPS Everywhere to 2018.1.11
-   * Bug 24756: Add noisebridge01 obfs4 bridge configuration
-   * Bug 23916: Add new MAR signing key
-   * Bug 22548: Firefox downgrades VP9 videos to VP8 for some users
- * Windows
-   * Bug 24197: Fix win64 sandbox compile issues
- * Build System
-   * Windows
-     * Bug 18691: switch Windows builds from precise to jessie
-   * Linux
-     * Bug 23892: Include Firefox and Tor debug files in final build directory
-     * Bug 24842: include libasan.so.2 and libubsan.so.0 in debug builds
 
 Tor Browser 7.5 -- January 23 2018
  * All Platforms

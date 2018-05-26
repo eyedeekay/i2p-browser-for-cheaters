@@ -108,11 +108,13 @@ pref("intl.locale.matchOS", false);
 pref("extensions.https_everywhere._observatory.enabled", false);
 pref("extensions.https_everywhere.autoUpdateRulesets", false);
 
+pref("extensions.torbutton.use_nontor_proxy", true);
+
 //For socket conversion: in the future, I'll need to make TBB communicate with
-//i2p over a unix socket. Fortunately, this is how you do that.
-//pref("extensions.torbutton.use_nontor_proxy", true);
-//pref("extensions.torlauncher.socks_port_use_ipc", true);
-//pref("extensions.torlauncher.socks_ipc_path", "/var/run/cheaters-i2p-browser_en-US/i2p.sock");
+//i2p over a unix socket. Fortunately, this is how you do that. It will be
+//configurable in a similar way to the host:port configuration when that happens.
+pref("extensions.torlauncher.socks_port_use_ipc", true);
+pref("extensions.torlauncher.socks_ipc_path", "");
 
 pref("extensions.torlauncher.start_tor", false);
 pref("extensions.torlauncher.default_bridge_type", "");

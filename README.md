@@ -21,7 +21,7 @@ If you just want to modify a TBB to work with i2p, you can:
 
 Here is, in some detail, what it does:
 
-Then it adds a few lines to the TBB's [extension-overrides.js](https://github.com/eyedeekay/i2p-browser-for-cheaters/raw/master/extension-overrides.js)
+First it adds a few lines to the TBB's [extension-overrides.js](https://github.com/eyedeekay/i2p-browser-for-cheaters/raw/master/extension-overrides.js)
 so that it keeps torlauncher from starting tor, tells it not to try and use
 bridges, and configures it to not pop up a menu. It also tells torbutton to not
 unset our custom proxy settings and attempt to use Tor, and tells HTTPS
@@ -139,7 +139,11 @@ found here.
 
 Pretty soon, it seems that TBB may only work over the Unix socket, so I'll need
 to deal with that. If I do something with the Control Port and i2pControl, then
-I'll have to do that too. Fortunately, it's easy.
+I'll have to do that too. Fortunately, it's ~~easy~~ as far as I know, already
+dealt with, as the socket to be used can be configured by the script now. To
+use a socket, run the script like this:
+
+        ./setup-i2p-browser.sh "$path_to_browser" socket "$desired_socket_path"
 
 I'm not at all sure what i2p's plans for HTTPS are yet, but I'm aware of some. I
 don't change the NoScript configuration and frankly, There is plenty I could

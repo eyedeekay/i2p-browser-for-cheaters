@@ -132,14 +132,18 @@ user:
 	adduser --home /var/lib/$(VARIANT)-i2p-browser_en-US --disabled-login --disabled-password --gecos ',,,,' i2pbrowser; true
 
 install:
-	rm -rf /var/lib/$(VARIANT)-i2p-browser_en-US /var/run/$(VARIANT)-i2p-browser_en-US
-	mkdir -p /var/run/$(VARIANT)-i2p-browser_en-US
+	install -d -o i2pbrowser -g i2pbrowser -m700 /var/run/$(VARIANT)-i2p-browser_en-US /var/lib/$(VARIANT)-i2p-browser_en-US
 	cp -Rv $(VARIANT)-i2p-browser_en-US /var/lib/$(VARIANT)-i2p-browser_en-US
 	install -m755 bin/$(VARIANT)-i2p-browser /usr/bin/$(VARIANT)-i2p-browser
 	ln -sf /usr/bin/$(VARIANT)-i2p-browser /usr/bin/$(VARIANT)i2pbrowser
-	chown -R i2pbrowser /var/lib/$(VARIANT)-i2p-browser_en-US /var/run/$(VARIANT)-i2p-browser_en-US
-	chmod -R o-rwx /var/lib/$(VARIANT)-i2p-browser_en-US
 	chmod a+x /usr/bin/start-i2p-browser
+
+remove:
+	rm -rf /var/run/$(VARIANT)-i2p-browser_en-US \
+		/var/lib/$(VARIANT)-i2p-browser_en-US \
+		/usr/bin/$(VARIANT)-i2p-browser \
+		/usr/bin/$(VARIANT)i2pbrowser
+
 
 checkinstall: postinstall-pak postremove-pak description-pak
 	fakeroot-ng checkinstall --default \

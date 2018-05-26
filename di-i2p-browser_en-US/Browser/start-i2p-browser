@@ -271,8 +271,6 @@ fi
 LD_LIBRARY_PATH="${HOME}/TorBrowser/Tor/"
 export LD_LIBRARY_PATH
 
-export SELFRANDO_write_layout_file=
-
 
 
 function setControlPortPasswd() {
