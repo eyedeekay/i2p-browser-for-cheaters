@@ -191,3 +191,8 @@ current configuration. This is not the only modification made to the TBB. This
 image is here largely for me to post on reddit when somebody has a beginner
 question.
 
+## Donate
+
+### Monero Wallet Address
+
+  XMR:43V6cTZrUfAb9JD6Dmn3vjdT9XxLbiE27D1kaoehb359ACaHs8191mR4RsJH7hGjRTiAoSwFQAVdsCBToXXPAqTMDdP2bZB
