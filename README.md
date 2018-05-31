@@ -149,8 +149,7 @@ opened. I think the easiest way to do this would probably be to create tiny
 service that translates the Tor Control Port communcations done by TorLauncher
 and TorButton to and from the i2pControl equivalents. Possibly more.
 
-An instructive, but possible old, article about the Tor Control Protocol can be
-found here.
+[An instructive, but possibly old, article about the Tor Control Protocol can be found here.](www.thesprawl.org/research/tor-control-protocol/)
 
 Pretty soon, it seems that TBB may only work over the Unix socket, so I'll need
 to deal with that. If I do something with the Control Port and i2pControl, then
