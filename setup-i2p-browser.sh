@@ -24,41 +24,45 @@
 # or
 #    ./setup-i2p-browser.sh "path_to_tbb"(required) socket "path_to_socket"(optional, default may not be sane)
 
+for conffile in etc/i2pbrowser.d/*.conf; do
+    . "$conffile"
+done
+
 i2pbrowser_syspref_js="
-pref(\"network.proxy.no_proxies_on\", 0);
-pref(\"network.proxy.type\", 1);
-pref(\"network.proxy.http\", \"127.0.0.1\");
-pref(\"network.proxy.http_port\", 4444);
-pref(\"network.proxy.ssl\", \"127.0.0.1\");
-pref(\"network.proxy.ssl_port\", 4444);
-pref(\"network.proxy.ftp\", \"127.0.0.1\");
-pref(\"network.proxy.ftp_port\", 4444);
-pref(\"network.proxy.socks\", \"127.0.0.1\");
-pref(\"network.proxy.socks_port\", 4444);
-pref(\"network.proxy.share_proxy_settings\", true);
+pref(\"network.proxy.no_proxies_on\", $I2P_NO_PROXIES_ON);
+pref(\"network.proxy.type\", $1);
+pref(\"network.proxy.http\", \"$I2P_PROXY_HOST\");
+pref(\"network.proxy.http_port\", $I2P_PROXY_PORT);
+pref(\"network.proxy.ssl\", \"$I2P_PROXY_HOST\");
+pref(\"network.proxy.ssl_port\", $I2P_PROXY_PORT);
+pref(\"network.proxy.ftp\", \"$I2P_PROXY_HOST\");
+pref(\"network.proxy.ftp_port\", $I2P_PROXY_PORT);
+pref(\"network.proxy.socks\", \"$I2P_PROXY_HOST\");
+pref(\"network.proxy.socks_port\", $I2P_PROXY_PORT);
+pref(\"network.proxy.share_proxy_settings\", $I2P_PROXY_SHARE);
 "
 
 i2pbrowser_append_extension_overrides="
-pref(\"extensions.https_everywhere._observatory.enabled\", false);
-pref(\"extensions.https_everywhere.options.autoUpdateRulesets\", false);
-pref(\"extensions.https_everywhere.globalEnabled\", false);
-pref(\"extensions.https_everywhere._observatory.submit_during_tor\", false);
-pref(\"extensions.https_everywhere._observatory.submit_during_nontor\", false);
-pref(\"extensions.https_everywhere._observatory.use_custom_proxy\",true);
-pref(\"extensions.https_everywhere._observatory.proxy_host\", \"127.0.0.1\");
-pref(\"extensions.https_everywhere._observatory.proxy_port\", 4444);
+pref(\"extensions.https_everywhere._observatory.enabled\", $I2P_HTTPSEVERYWHERE_OBSERVATORY);
+pref(\"extensions.https_everywhere.options.autoUpdateRulesets\", $I2P_HTTPSEVERYWHERE_AUTOUPDATE);
+pref(\"extensions.https_everywhere.globalEnabled\", $I2P_HTTPSEVERYWHERE_GLOBALENABLED);
+pref(\"extensions.https_everywhere._observatory.submit_during_tor\", $I2P_HTTPSEVERYWHERE_SUBMIT);
+pref(\"extensions.https_everywhere._observatory.submit_during_nontor\", $I2P_HTTPSEVERYWHERE_SUBMIT);
+pref(\"extensions.https_everywhere._observatory.use_custom_proxy\", $I2P_HTTPSEVERYWHERE_PROXY);
+pref(\"extensions.https_everywhere._observatory.proxy_host\", \"$I2P_HTTPSEVERYWHERE_PROXY_HOST\");
+pref(\"extensions.https_everywhere._observatory.proxy_port\", $I2P_HTTPSEVERYWHERE_PROXY_PORT);
 
-pref(\"extensions.torbutton.use_nontor_proxy\", true);
+pref(\"extensions.torbutton.use_nontor_proxy\", $I2P_TORBUTTON_NONTOR_PROXY);
 
 //For socket conversion: in the future, I'll need to make TBB communicate with
 //i2p over a unix socket. Fortunately, this is how you do that. It will be
 //configurable in a similar way to the host:port configuration when that happens.
-//pref(\"extensions.torlauncher.socks_port_use_ipc\", true);
-//pref(\"extensions.torlauncher.socks_ipc_path\", \"/var/run/cheaters-i2p-browser_en-US/i2p.sock\");
+//pref(\"extensions.torlauncher.socks_port_use_ipc\", $I2P_TORLAUNCHER_USE_SOCKS_IPC);
+//pref(\"extensions.torlauncher.socks_ipc_path\", \"$I2P_TORLAUNCHER_SOCKS_IPC_PATH\");
 
-pref(\"extensions.torlauncher.start_tor\", false);
-pref(\"extensions.torlauncher.default_bridge_type\", \"\");
-pref(\"extensions.torlauncher.prompt_at_startup\", false);
+pref(\"extensions.torlauncher.start_tor\", $I2P_TORLAUNCHER_START_TOR);
+pref(\"extensions.torlauncher.default_bridge_type\", \"$I2P_TORLAUNCHER_BRIDGE_TYPE\");
+pref(\"extensions.torlauncher.prompt_at_startup\", $I2P_TORLAUNCHER_SHOW_PROMPT);
 "
 
 validate_i2pbrowser_directory(){
