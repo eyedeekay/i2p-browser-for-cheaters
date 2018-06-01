@@ -42,6 +42,8 @@ RUN tar xf /home/anon/tor.tar.xz
 RUN rm -f /home/anon/tor.tar.xz*
 
 COPY setup-i2p-browser.sh .
+COPY etc/ etc/
+
 RUN ./setup-i2p-browser.sh "/home/anon/tor-browser_en-US/" "$PORT"
 
 RUN mkdir -p /home/anon/working
