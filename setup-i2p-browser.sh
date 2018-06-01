@@ -30,7 +30,7 @@ done
 
 i2pbrowser_syspref_js="
 pref(\"network.proxy.no_proxies_on\", $I2P_NO_PROXIES_ON);
-pref(\"network.proxy.type\", $1);
+pref(\"network.proxy.type\", $I2P_PROXY_TYPE);
 pref(\"network.proxy.http\", \"$I2P_PROXY_HOST\");
 pref(\"network.proxy.http_port\", $I2P_PROXY_PORT);
 pref(\"network.proxy.ssl\", \"$I2P_PROXY_HOST\");
