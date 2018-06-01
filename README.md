@@ -70,6 +70,12 @@ un-proxied connections. That's all put into a file called [i2p-browser.js](https
         pref("network.proxy.type", 1);
         pref("network.proxy.http", "127.0.0.1");
         pref("network.proxy.http_port", 4444);
+        pref("network.proxy.https", "127.0.0.1");
+        pref("network.proxy.https_port", 4444);
+        pref("network.proxy.ftp", "127.0.0.1");
+        pref("network.proxy.ftp_port", 4444);
+        pref("network.proxy.socks", "127.0.0.1");
+        pref("network.proxy.socks_port", 4444);
         pref("network.proxy.share_proxy_settings", true);
 
 Then it renames a few files from something like start-tor-browser to
