@@ -1,0 +1,966 @@
+<div class="debug-eyeline">
+
+</div>
+
+<div class="wrap">
+
+<div class="contents">
+
+<div class="row">
+
+<div class="title span13">
+
+[![Whonix
+Forum](https://www.whonix.org/w/images/e/e0/210-Banner.png){#site-logo}](/)
+
+</div>
+
+<div class="panel clearfix">
+
+[** Log In](/login){.btn .btn-primary .btn-small .login-button}
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="main-outlet" class="wrap">
+
+[I2P Integration](/t/i2p-integration/4981)
+==========================================
+
+<div id="breadcrumbs">
+
+<div id="breadcrumb-0" itemscope=""
+itemtype="http://data-vocabulary.org/Breadcrumb">
+
+[<span itemprop="title">Development</span>](/c/development)
+
+</div>
+
+</div>
+
+------------------------------------------------------------------------
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**Patrick**](/u/Patrick) 2018-05-25 12:21:00 UTC </span> <span
+itemprop="position">\#136</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+Idk:
+
+> The meek http helper folder is not added back in by an update.
+
+Updates only change the delta (actual changes, not resending all
+files).\
+So this may or may not be the case when meek gets updated.
+
+I don’t see why meek should be deleted - never caused an issue in
+Whonix.
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**eyedeekay**](/u/eyedeekay) 2018-05-25 13:38:11 UTC </span>
+<span itemprop="position">\#137</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+I think my early impulse was to try and remove Tor-specific features,
+but since doing that seems pointless(Now that what it produces works)
+I’d rather not have something added back in by an update without a user
+knowing. I’ve changed it to leave the meek profile in now.
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**Patrick**](/u/Patrick) 2018-05-27 06:53:00 UTC </span> <span
+itemprop="position">\#138</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+Idk:
+
+> Is there any reason why I wouldn’t want to set it to my own socket by
+> setting extensions.torlauncher.socks\_ipc\_path, Whonix-wise?
+
+My Whonix development experience lets me conclude, it’s best to keep
+the\
+Tor Browser folder unmodified and to use environment variables to\
+reconfigure Tor Browser to do what it should. Everything else is\
+unreliable long term. And in the absence of environment variables, work\
+with Tor Project to get them implemented, possibly submit patches.
+
+Since you’re possibly going to modify tb-starter `/usr/bin/torbrowser`
+(\
+<https://phabricator.whonix.org/T795#16085> ), I think modifying the\
+environment variable would be better.
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**HulaHoop**](/u/HulaHoop) 2018-05-30 03:18:07 UTC </span> <span
+itemprop="position">\#139</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+<div class="title">
+
+<div class="quote-controls">
+
+</div>
+
+![](//forums.whonix.org/letter_avatar_proxy/v2/letter/g/ecc23a/40.png){.avatar
+width="20" height="20"} Goldstein:
+
+</div>
+
+> I tested it now on a fresh Whonix 14 Template and it works fine, could
+> you test it again ?
+
+[@Goldstein](/u/goldstein){.mention} I checked it and now its working no
+problem. Seems to be a spooly errata that is now fixed o.O
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**HulaHoop**](/u/HulaHoop) 2018-05-30 03:24:20 UTC </span> <span
+itemprop="position">\#140</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+<div class="title">
+
+<div class="quote-controls">
+
+</div>
+
+![](//forums.whonix.org/letter_avatar_proxy/v2/letter/g/ecc23a/40.png){.avatar
+width="20" height="20"} Goldstein:
+
+</div>
+
+> Looks good thanks, i wouldn’t mind renaming the files
+> [@HulaHoop](/u/hulahoop){.mention} what do you think ?
+
+[@eyedeekay](/u/eyedeekay){.mention} You guys have made some great
+progress since I was last here. Thanks for putting your backs into it.
+IMHO the best way forward, with least maintenance and breakage is to
+leave Tor Browser extensions and updater alone and do the absolute
+minimum that gets us up and running as long as they don’t mess with I2P
+functionality - Which I don’t think they do?
+
+Has anyone tried to update it with our Tor Browser Downloader script and
+see if the prefs stay set?
+
+Also speaking of updating I think its very important to have Tor Browser
+Downloader somehow trigger on startup of TBB I2P to check for new
+versions since this custom version is incapable of connecting to the the
+internet? Its very important users have the latest fixes for obvious
+reasons. [@Patrick](/u/patrick){.mention} can this be easily done if its
+the case?
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**Patrick**](/u/Patrick) 2018-05-30 09:08:00 UTC </span> <span
+itemprop="position">\#141</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+Doable. “Define easy.” Submit proposals / code.
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**HulaHoop**](/u/HulaHoop) 2018-05-30 14:22:00 UTC </span> <span
+itemprop="position">\#142</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+The easiest solution I can think of is to append a command to run TBB
+DLer, in the custom TBB menu icon.
+
+for example:
+
+custom torbrowser u% && run TBB DLer
+
+A user would have to go out of their way to not run an update check.
+
+For this to be seamless as possible:
+
+1.  TBB Downloader needs to be able to check the version of the locally
+    installed TBB - this can be done because there is a version.js
+    capability implemented in Tor Browser that can be queried IIRC.\
+    EDIT:\
+    <https://github.com/micahflee/torbrowser-launcher/pull/308>\
+    Since TBB lacks a metadata file and parsing prefs.js for version
+    info is bad practice, the best way is to read the changelog text
+    file and go from there:\
+    <https://github.com/micahflee/torbrowser-launcher/pull/307>
+
+2.  TBB Downloader should run in a background mode and only show a
+    prompt if installed version is less than a newer one.
+
+------------------------------------------------------------------------
+
+While testing now: It seems other config settings are persistent,
+however disabling the socks proxy (to prevent normal internet access) is
+rolled back after a TBB update. Do you have a suggestion on how to keep
+it off permanently?
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**Patrick**](/u/Patrick) 2018-05-30 19:19:00 UTC </span> <span
+itemprop="position">\#143</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+HulaHoop:
+
+> The easiest solution I can think of is to append a command to run TBB
+> DLer, in the custom TBB menu icon.
+>
+> for example:
+>
+> custom torbrowser u% && run TBB DLer
+
+`&&` would result in running `update-torbrowser` when `torbrowser`\
+`exit`s `0` only.
+
+Lunch into background.
+
+    torbrowser &
+    update-torbrowser --some-yet-to-be-implemented-switch[s]
+
+> A user would have to go out of their way to not run an update check.
+>
+> For this to be seamless as possible:
+>
+> 1.  TBB Downloader needs to be able to check the version of the
+>     locally installed TBB - this can be done because there is a
+>     version.js capability implemented in Tor Browser that can be
+>     queried IIRC.
+
+Patches welcome.
+
+`re-implement Tor Browser local version number detection`\
+<https://phabricator.whonix.org/T400>
+
+> 2.  TBB Downloader should run in a background mode and only show a
+>     prompt if installed version is less than a newer one.
+
+Ticket and patches for new command line option welcome.
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**HulaHoop**](/u/HulaHoop) 2018-05-31 13:03:09 UTC </span> <span
+itemprop="position">\#144</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+OK before I open tickets with the proposals, there is another idea:
+
+Have a script that monitors changes to changelog.txt and trigger an 1.
+overwrite of the custom TBB folder with the updated code if it detects
+changes in TBB original, 2. Run the I2P pref script to re-apply those
+settings after the code update.
+
+Which one do you think is better?
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**Goldstein**](/u/Goldstein) 2018-05-31 14:11:46 UTC </span>
+<span itemprop="position">\#145</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+<div class="title">
+
+<div class="quote-controls">
+
+</div>
+
+![](//forums.whonix.org/letter_avatar_proxy/v2/letter/h/edb3f5/40.png){.avatar
+width="20" height="20"} HulaHoop:
+
+</div>
+
+> Have a script that monitors changes to changelog.txt and trigger
+
+I think this one is easier to do and it would give us the option to
+check more things like:\
+is i2p running,\
+are tunnels build,\
+check for I2P Updates,\
+and so on…
+
+what do you think ?
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**eyedeekay**](/u/eyedeekay) 2018-05-31 14:52:35 UTC </span>
+<span itemprop="position">\#146</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+I’ve been reading through the tb-updater and tb-starter scripts, and I
+have a pretty good idea of how to make the changes we need to make to
+make them set up an i2p browser also. I’ll watch the proposals and try
+and implement them this weekend. It’ll also help me identify whether
+there are any needed modifications I can’t make in TBB with environment
+variables, but most of them already seem to be where I need them. I was
+thinking just an “–i2p” flag for each of them, which would tell
+tb-updater download the latest TBB to a different path and tell
+tb-starter to use that TBB and assure i2p-related settings. Unless I’m
+missing something that should be something I can do by Monday.
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**HulaHoop**](/u/HulaHoop) 2018-05-31 19:37:57 UTC </span> <span
+itemprop="position">\#147</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+Actually these last couple of proposals are a workaround for the fact
+that we can’t get privoxy’s domain whitelist feature off the ground.
+This is by far the better solution as we can still update normally but
+not users visit internet sites by mistake.
+[@Goldstein](/u/goldstein){.mention} any luck doing this?
+
+------------------------------------------------------------------------
+
+Now [@Goldstein](/u/goldstein){.mention} add the whitelist instructions
+to your github page:
+
+In /etc/privoxy/config uncomment the line below and then restart
+privoxy:
+
+trustfile trust
+
+Edit the newly created file:
+
+kdesudo kwrite /etc/privoxy/trust
+
+Add this rule rules at the end of the file then restart privoxy:
+
+\~\*.i2p
+
+Now it should block access and display a big red “UNTRUSTED” warning
+whenever connecting to a non whitelisted domain (with the caveat that
+you can override it if you press the go there anyway link but I assume
+the user is not retarded). Tor Browser updater can connect no problem.
+
+N.B. This is not effective for https links. To block those change the
+setting below in about:config:
+
+network.proxy.ssl;127.0.0.1\
+network.proxy.ssl\_port;8118
+
+Also might as well set privoxy for ftp proxying too.
+
+Now it will say proxy refusing connections. I think
+[@eyedeekay](/u/eyedeekay){.mention}’s choice to set all the protocols
+(ftp, ssl, http) to 127.0.0.1:8118 was a more sound choice because
+‘share settings’ doesn’t seem effective. Can you also add this to
+github?
+
+------------------------------------------------------------------------
+
+![](https://static.makeuseof.com/wp-content/themes/makeuseof2016/components/icons/favicon.ico){.site-icon
+width="192" height="192"}
+[MakeUseOf](https://www.makeuseof.com/tag/controlling-web-access-with-privoxy-part-one/)
+<div class="aspect-image" style="--aspect-ratio:250/169;">
+
+![](//forums.whonix.org/uploads/default/original/2X/5/53d9e1dd41e938782a9a6bc4187e1ee1e93f69a7.png){.thumbnail}
+
+</div>
+
+### [How To Restrict Access to Websites with Privoxy](https://www.makeuseof.com/tag/controlling-web-access-with-privoxy-part-one/)
+
+Advertisement
+
+<div class="onebox-metadata">
+
+</div>
+
+<div style="clear: both">
+
+</div>
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**HulaHoop**](/u/HulaHoop) 2018-05-31 23:44:53 UTC </span> <span
+itemprop="position">\#148</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+There is still hope. To filter ssl we can can use stunnel. Unfortunately
+squid is not an option because to enable sslbump support we would need
+to recompile the deb src package since the default binary does not have
+these options enabled.
+
+This is more complicated than I thought with not much instructions on
+the web. The closest thing I have is this discussion though its not
+directly related:
+
+[superuser.com](https://superuser.com/questions/794857/redirect-all-web-traffic-through-tls-without-a-vpn)
+[![allquixotic](//forums.whonix.org/uploads/default/original/2X/d/df2adee8b698e8b84aaa5adf24306dc17ec94cd6.png){.thumbnail
+.onebox-avatar width="128"
+height="128"}](https://superuser.com/users/144607/allquixotic)
+#### [Redirect ALL web traffic through TLS without a VPN](https://superuser.com/questions/794857/redirect-all-web-traffic-through-tls-without-a-vpn)
+
+<div class="tags">
+
+**firefox, proxy, firewall, https**
+
+</div>
+
+<div class="date">
+
+asked by [allquixotic](https://superuser.com/users/144607/allquixotic)
+on [03:18AM - 10 Aug
+14](https://superuser.com/questions/794857/redirect-all-web-traffic-through-tls-without-a-vpn)
+
+</div>
+
+<div class="onebox-metadata">
+
+</div>
+
+<div style="clear: both">
+
+</div>
+
+What we want is to MITM SSL connections and pipe the output into privoxy
+which can then apply its whitelist. Why does it have to be a bitch to
+configure? I don’t know but we might get there.
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**eyedeekay**](/u/eyedeekay) 2018-06-01 02:13:52 UTC </span>
+<span itemprop="position">\#149</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+Well it was really just a matter of what I started with and what I left
+in when I re-activated Torbutton. The reason I originally regarded what
+I did as “cheating” was that my original intent was to apply [these
+settings](https://github.com/PurpleI2P/i2pdbrowser/blob/master/linux/build/preferences/syspref.js)
+to a current Tor Browser in order to produce an acceptable basic i2p
+Browser. Then I realized Torbutton configured most of those by default
+and removed all but the proxy-setting preferences, and leaving them all
+explicit seemed like the careful thing to do. I’ve added that back into
+the script. This is simple enough to maintain and useful to me, so I’m
+going to keep it maintained, but if I can I’d like to move to modifying
+the tb-updater to set up a Tor Browser especially for use with a
+modified proxy(i2p or privoxy, etc), and either modifying or imitating
+tb-starter to configure and launch it. That way the behavior is
+consistent and we can sidestep some of the update issues. I’ll just make
+it so they have a common configuration file with the desired settings.
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**Patrick**](/u/Patrick) 2018-06-01 03:11:00 UTC </span> <span
+itemprop="position">\#150</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+changelog.txt? Location? In tbb folder on local harddrive? Of regular\
+Tor Browser or custom i2p Tor Browser?
+
+-   the user may not start the former for a long time so the former\
+    changelog.txt can’t be trusted
+-   the latter changelog.txt in custom i2p Tor Browser folder won’t
+    change\
+    since Tor Browser internal updater
+
+Parsing changelog.txt sounds hacky and wrong.
+
+Idk:
+
+> It’ll also help me identify whether there are any needed modifications
+> I can’t make in TBB with environment variables, but most of them
+> already seem to be where I need them.
+
+Yea. Environment variables everywhere already. Fore-planed modification\
+long ago. And where we lack needed environment variables them, we would\
+add them.
+
+> I was thinking just an “–i2p” flag for each of them,
+
+Yes, it could have a flag --i2p which runs a function which then sets\
+the variables.
+
+Idk:
+
+> if I can I’d like to move to modifying the tb-updater to set up a Tor\
+> Browser especially for use with a modified proxy(i2p or privoxy, etc),
+
+Yes.
+
+> and either modifying or imitating tb-starter to configure and launch
+> it.
+
+Imitating tb-starter doesn’t sound so great. Modification should be
+doable.
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**HulaHoop**](/u/HulaHoop) 2018-06-01 03:48:00 UTC </span> <span
+itemprop="position">\#151</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+I thought on it some more & I don’t feel comfortable fucking with Tor
+Browser’s updater SSL with stunnel. They are probably checking code sigs
+too but still. Yet another probably impractical solution is to
+“virtualize” the original TBB. Essentially every time you launch the
+custom Bundle, the original is copied to the custom folder, a script
+applies the custom prefs including the SSL blocking, bookmarks and so
+on. Then on exit the entire custom TBB folder is deleted. The advantage
+is you are guaranteed to be running the latest TBB version despite
+internet access blocked, also its way more easier than modifying the Tor
+downloader script to keep track of versions, perform the updates and
+then restore our custom settings that disable socks access. The
+disadvantage is it could be slower to start.
+
+If this too sounds too much then I say we forget about blocking internet
+access and save everyone’s time. Let’s assume a non-disciplined user is
+not really our problem.
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**goldstein-otg**](/u/goldstein-otg) 2018-06-01 04:22:52 UTC
+</span> <span itemprop="position">\#152</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+<div class="title">
+
+<div class="quote-controls">
+
+</div>
+
+![](//forums.whonix.org/letter_avatar_proxy/v2/letter/h/edb3f5/40.png){.avatar
+width="20" height="20"} HulaHoop:
+
+</div>
+
+> Now it should block access and display a big red “UNTRUSTED” warning
+> whenever connecting to a non whitelisted domain (with the caveat that
+> you can override it if you press the go there anyway link but I assume
+> the user is not retarded). Tor Browser updater can connect no problem.
+
+You forgot to add `enforce-blocks 1`
+
+> that’s what the “enforce-blocks” option is for. If it’s enabled,
+> Privoxy hides the “go there anyway” link. If the user adds the force
+> prefix by hand, it will not be accepted and the circumvention attempt
+> is logged
+
+.
+
+<div class="title">
+
+<div class="quote-controls">
+
+</div>
+
+![](//forums.whonix.org/letter_avatar_proxy/v2/letter/h/edb3f5/40.png){.avatar
+width="20" height="20"} HulaHoop:
+
+</div>
+
+> Now it will say proxy refusing connections.
+
+Expected see
+
+> However, because the proxy cannot gracefully show the regular
+> “blocked” page with HTTPS, it will just refuse the request. The
+> browser will then display an error like “The proxy server is refusing
+> connections”. This means you won’t be able to bypass the filter (if
+> that option is even enabled).
+
+[superuser.com](https://superuser.com/questions/1181362/privoxy-blocking-by-host-pattern-doesnt-work-when-https-is-used)
+[![coolnodje](//forums.whonix.org/uploads/default/original/2X/5/5563062238e0e2ec3f5fddff4e1699d103a88581.png){.thumbnail
+.onebox-avatar width="128"
+height="128"}](https://superuser.com/users/215453/coolnodje)
+#### [Privoxy blocking by host pattern doesn't work when HTTPS is used](https://superuser.com/questions/1181362/privoxy-blocking-by-host-pattern-doesnt-work-when-https-is-used)
+
+<div class="tags">
+
+**privoxy**
+
+</div>
+
+<div class="date">
+
+asked by [coolnodje](https://superuser.com/users/215453/coolnodje) on
+[09:21PM - 21 Feb
+17](https://superuser.com/questions/1181362/privoxy-blocking-by-host-pattern-doesnt-work-when-https-is-used)
+
+</div>
+
+<div class="onebox-metadata">
+
+</div>
+
+<div style="clear: both">
+
+</div>
+
+Couldn’t we just whitelist the updater URL ?
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**Patrick**](/u/Patrick) 2018-06-01 08:31:00 UTC </span> <span
+itemprop="position">\#153</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+HulaHoop:
+
+> I thought on it some more & I don’t feel comfortable fucking with Tor
+> Browser’s updater SSL with stunnel. They are probably checking code
+> sigs too but still. Yet another probably impractical solution is to
+> “virtualize” the original TBB. Essentially every time you launch the
+> custom Bundle, the original is copied to the custom folder, a script
+> applies the custom prefs including the SSL blocking, bookmarks and so
+> on. Then on exit the entire custom TBB folder is deleted. *The
+> advantage is you are guaranteed to be running the latest* TBB version
+> despite internet access blocked, also its way more easier than
+> modifying the Tor downloader script to keep track of versions, perform
+> the updates and then restore our custom settings that disable socks
+> access. The disadvantage is it could be slower to start.
+
+See *bold*. Why would the version be up to date? The user would have to\
+interact with the “virtual” (or call it template?) TBB’s gui internal\
+updater. Then the user would have to close TBB so the starter could
+make\
+a copy of it, modify, and start it.
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**HulaHoop**](/u/HulaHoop) 2018-06-01 13:05:00 UTC </span> <span
+itemprop="position">\#154</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+<div class="title">
+
+<div class="quote-controls">
+
+</div>
+
+![](//forums.whonix.org/letter_avatar_proxy/v2/letter/g/df705f/40.png){.avatar
+width="20" height="20"} goldstein-otg:
+
+</div>
+
+> Couldn’t we just whitelist the updater URL ?
+
+You were right
+![:slight\_smile:](//forums.whonix.org/images/emoji/twitter/slight_smile.png?v=5 ":slight_smile:"){.emoji}
+
+I added:
+
+[\~.torproject.org](){.onebox}
+
+and it worked while blocking other ssl sites. My first post is now valid
+again. No need for the complicated workarounds with Tor downloader.
+Sorry for not doing a more thorough job the first time. Please add the
+steps in my link to your github. I also added one more thing for ftp
+proxying since last time.
+
+<div class="title">
+
+<div class="quote-controls">
+
+</div>
+
+![](/letter_avatar_proxy/v2/letter/h/edb3f5/40.png){.avatar width="20"
+height="20"} [I2P
+Integration](https://forums.whonix.org/t/i2p-integration/4981/147?u=hulahoop)
+[<span class="badge-category-bg"
+style="background-color: #25AAE2;"></span><span
+class="badge-category clear-badge" style="" data-drop-close="true"
+title="Hacking on the Whonix software and code. (devs) (list of unmaintained components)">Development</span>](/c/development){.badge-wrapper
+.bullet}
+
+</div>
+
+> Actually these last couple of proposals are a workaround for the fact
+> that we can’t get privoxy’s domain whitelist feature off the ground.
+> This is by far the better solution as we can still update normally but
+> not users visit internet sites by mistake.
+> [@Goldstein](/u/goldstein){.mention} any luck doing this? Now
+> [@Goldstein](/u/goldstein){.mention} add the whitelist instructions to
+> your github page: In /etc/privoxy/config uncomment the line below and
+> then restart privoxy: trustfile trust Edit the newly created file:
+> kdesudo kwrite /etc/pri…
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+<div itemscope="" itemtype="http://schema.org/DiscussionForumPosting">
+
+<div class="creator">
+
+<span> [**Goldstein**](/u/Goldstein) 2018-06-01 14:26:55 UTC </span>
+<span itemprop="position">\#155</span>
+
+</div>
+
+<div class="post" itemprop="articleBody">
+
+<div class="title">
+
+<div class="quote-controls">
+
+</div>
+
+![](//forums.whonix.org/letter_avatar_proxy/v2/letter/h/edb3f5/40.png){.avatar
+width="20" height="20"} HulaHoop:
+
+</div>
+
+> My first post is now valid again. No need for the complicated
+> workarounds with Tor downloader. Sorry for not doing a more thorough
+> job the first time. Please add the steps in my link to your github. I
+> also added one more thing for ftp proxying since last time.
+
+Great, thanks for testing
+
+I guess `trust-info-url` would also be handy for telling the user what
+happened and that he should use the normal TBB
+
+> A URL to be displayed in the error page that users will see if access
+> to an untrusted page is denied.
+
+Please Edit the Link to point to the Repo directly ( i changed the name
+of the file and i’m going to add more by time just to avoid 404’s )\
+
+![](https://assets-cdn.github.com/favicon.ico){.site-icon width="32"
+height="32"} [GitHub](https://github.com/mutedstorm/Whonix-I2P)
+![](//forums.whonix.org/uploads/default/original/2X/5/562033de3cfcd44beed7fc8e275d1bf1043df6dc.jpg){.thumbnail
+.onebox-avatar width="400" height="400"}
+### [mutedstorm/Whonix-I2P](https://github.com/mutedstorm/Whonix-I2P)
+
+Whonix-I2P - Whonix I2P Integration
+
+<div class="onebox-metadata">
+
+</div>
+
+<div style="clear: both">
+
+</div>
+
+</div>
+
+------------------------------------------------------------------------
+
+</div>
+
+[Home](/) [Categories](/categories) [FAQ/Guidelines](/guidelines) [Terms
+of Service](/tos) [Privacy Policy](/privacy)
+
+</div>
+
+Powered by [Discourse](https://www.discourse.org), best viewed with
+JavaScript enabled
+
+<div id="main" class="section">
+
+</div>
+
+<div id="offscreen-content">
+
+</div>

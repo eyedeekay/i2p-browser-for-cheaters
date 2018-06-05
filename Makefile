@@ -10,6 +10,7 @@ BROWSER_VERSION=$(shell curl https://www.torproject.org/projects/torbrowser.html
 #UNCOMMENT THE FOLLOWING LINES IF YOU WANT TO USE THE EXPERIMENTAL TBB
 #EXPERIMENTAL=0.
 #BROWSER_VERSION=8.0a7
+#BROWSER_VERSION=0.0.16
 
 DEFAULT_PORT=4444
 DEFAULT_ADDR=127.0.0.1
@@ -269,3 +270,13 @@ issue:
 
 socket:
 	./bin/assure-socket-$(VARIANT)
+
+.checkforum:
+	torsocks pandoc -t markdown https://forums.whonix.org/t/i2p-integration/4981/1000 > .checkforum || rm .checkforum
+	cat .checkforum
+
+.diffcheck: .checkforum
+	torsocks pandoc -t markdown https://forums.whonix.org/t/i2p-integration/4981/1000 > .diffcheck || rm .diffcheck
+	diff .checkforum .diffcheck && mv .diffcheck .checkforum
+
+diffcheck: .diffcheck
