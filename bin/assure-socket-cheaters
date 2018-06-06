@@ -1,5 +1,5 @@
 #! /usr/bin/env sh
 
 sudo -u i2pbrowser mkdir -p "/var/run/cheaters-i2p-browser_en-US/"
-sudo -u i2pbrowser socat -t600 -x -v UNIX-LISTEN:"/var/run/cheaters-i2p-browser_en-US/i2p.sock",mode=777,reuseaddr,fork TCP-CONNECT:localhost:4447
+sudo -u i2pbrowser socat -t600 -x -v UNIX-LISTEN:"/var/run/cheaters-i2p-browser_en-US/i2p_127.0.0.1_4447.sock",mode=777,reuseaddr,fork TCP-CONNECT:localhost:4447
 
