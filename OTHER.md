@@ -24,7 +24,9 @@ by cloning my fork and running
         debuild -us -uc
 
 from the cloned repo directory. Once installed, you can download an i2p browser
-by running torbrowser-updater with the new **--i2p** flag.
+by running torbrowser-updater with the new **--i2p** flag. As of June 10th, 2018
+this change has been submitted to https://github.com/whonix/tb-updater by a pull
+request.
 
 tb-starter
 ----------
@@ -49,7 +51,9 @@ by running
 
 from the cloned repo directory. Once installed, you'll have a helper script
 at /usr/bin/i2pbrowser which will launch your pre-configured Tor Browser for
-i2p, hereafter called i2p browser.
+i2p, hereafter called i2p browser. The behavior of this is still being refined.
+It will be ready to submit before the Torbutton patch, and will be submitted as
+soon as the Torbutton patch clears.
 
 torbutton
 ---------
@@ -78,7 +82,8 @@ In order to test it, you'll need to close my fork of Torbutton and run the
 from the cloned repo director. Then you'll need to start the i2p browser and go
 to about:config, where you'll need to disable xpiinstall.signatures. Then you
 can install the add-on from the newly generated .xpi file. You may need re-start
-the browser for the changes to take effect.
+the browser for the changes to take effect. As of June 10th, 2018, this change
+has been [submitted as a trac ticket to the Tor Project](https://trac.torproject.org/projects/tor/ticket/26341).
 
 i2p-torbrowser-sockets-workaround
 ---------------------------------
@@ -97,4 +102,3 @@ have the horsepower to support a Qubes or Whonix-based setup.
 As far as I can reckon, once I have this finished some semblance of support for
 i2p browsing in Whonix [will be within reach.](https://github.com/eyedeekay/i2p-torbrowser-sockets-workaround)
 
-My friend is saying I need to get some sleep, I'll be back tomorrow night.
