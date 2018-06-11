@@ -152,7 +152,7 @@ checkinstall: postinstall-pak postremove-pak description-pak
 	fakeroot-ng checkinstall --default \
 		--install=no \
 		--fstrans=yes \
-		--maintainer=problemsolver@openmailbox.org \
+		--maintainer=eyedeekay@safe-mail.net \
 		--pkgname="$(VARIANT)-i2p-browser" \
 		--pkgversion="$(PKG_VERSION)" \
 		--arch "$(UARCH)" \
