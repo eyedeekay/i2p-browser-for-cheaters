@@ -147,6 +147,11 @@ remove:
 		/usr/bin/$(VARIANT)-i2p-browser \
 		/usr/bin/$(VARIANT)i2pbrowser
 
+remove-all:
+	make remove; true
+	VARIANT=di make remove; true
+	VARIANT=privoxy make remove; true
+
 
 checkinstall: postinstall-pak postremove-pak description-pak
 	fakeroot-ng checkinstall --default \

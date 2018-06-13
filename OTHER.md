@@ -26,7 +26,8 @@ by cloning my fork and running
 from the cloned repo directory. Once installed, you can download an i2p browser
 by running torbrowser-updater with the new **--i2p** flag. As of June 10th, 2018
 this change has been submitted to https://github.com/whonix/tb-updater by a pull
-request.
+request. As of June 12th, 2018 the tb-updater script modified for i2p has been
+included in tb-updater.
 
 tb-starter
 ----------
