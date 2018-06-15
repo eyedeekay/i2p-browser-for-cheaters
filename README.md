@@ -1,15 +1,18 @@
 # i2p-browser-for-cheaters
 
+**This project is not endorsed by either the Tor or i2p Projects**
+
 The path of least resistance to a Linux-only i2p browser. A script that Modifies
 a tor browser bundle and spits out a tar.gz. This project has good and bad
 qualities. The good is that it works. It's already reasonably flexible. It's
 pretty easy to use. The bad is that it doesn't take advantage of the built-in
 Tor Browser features designed to enable this type of procedure, and as a result
 it will fail certain security checks(reproducibility) once the script is
-completed, among other related shortcomings. So a better approach is
-forthcoming, but not quite finished yet. An incremental progress report is
-maintained [in this repository](OTHER.md) with links to the relevant project
-repos.
+completed, among other related shortcomings. Just to be clear, while I don't
+think it's dangerous to use *with care* it is fatally flawed. So a better
+approach is forthcoming, but not quite finished yet. An incremental progress
+report is maintained [in this repository](OTHER.md) with links to the relevant
+project repos.
 
 All it does it take the standard Tor Browser Bundle, applies custom settings to
 torlauncher, torbutton, and HTTPS everywhere(I've disabled the observatory and
