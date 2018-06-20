@@ -40,7 +40,9 @@ pref(\"network.proxy.ftp_port\", $I2P_PROXY_PORT);
 pref(\"network.proxy.socks\", \"$I2P_PROXY_HOST\");
 pref(\"network.proxy.socks_port\", $I2P_PROXY_PORT);
 pref(\"network.proxy.share_proxy_settings\", $I2P_PROXY_SHARE);
+pref(\"browser.startup.homepage\", \"about:blank\");
 "
+#pref(\"nightly.templates.title\",\"unofficial i2p Browser\");
 
 i2pbrowser_append_extension_overrides="
 pref(\"extensions.https_everywhere._observatory.enabled\", $I2P_HTTPSEVERYWHERE_OBSERVATORY);

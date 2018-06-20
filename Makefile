@@ -110,7 +110,7 @@ docker-copy:
 	docker cp i2p-browser:/home/anon/i2p-browser.tar.gz $(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz
 
 docker-clean:
-	docker rm -f i2p-browser
+	docker rm -f i2p-browser; true
 
 docker-clobber:
 	docker rmi -f eyedeekay/$(VARIANT)i2p-browser
