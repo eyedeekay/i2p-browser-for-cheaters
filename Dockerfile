@@ -1,5 +1,6 @@
 FROM debian:sid
 ARG BROWSER_VERSION="7.5.5"
+ARG HOST="127.0.0.1"
 ARG PORT="4444"
 
 ENV DEBIAN_FRONTEND=noninteractive HOME=/home/anon
