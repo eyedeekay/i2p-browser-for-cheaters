@@ -287,3 +287,18 @@ socket:
 	diff .checkforum .diffcheck && mv .diffcheck .checkforum
 
 diffcheck: .diffcheck
+
+index:
+	@echo '<!DOCTYPE html>' | tee i2p-diffs.html
+	@echo '<html>' | tee -a i2p-diffs.html
+	@echo '    <title>Unofficial i2p Browser</title>' | tee -a i2p-diffs.html
+	@echo '<body>' | tee -a i2p-diffs.html
+	@echo '<style>' | tee -a i2p-diffs.html
+	@echo '    body {background-color: khaki; font-family: monospace; margin-left: auto; margin-right: auto; width: 80%; font-size: 14px;}' | tee -a i2p-diffs.html
+	@echo '    h1 {color: greenviolet; border: 10px solid seagreen; text-align: center; background-color: gold; margin-left: auto; margin-right: auto; width: 50%; font-size: 30px;}' | tee -a i2p-diffs.html
+	@echo '    h2 {color: darkviolet; border: 10px dotted darksalmon; text-align: center; background-color: gold; margin-left: auto; margin-right: auto; width: 50%; font-size: 24px;}' | tee -a i2p-diffs.html
+	@echo '    p {color: indigo; border: 3px dotted seagreen; margin-left: auto; margin-right: auto; width: 80%;}' | tee -a i2p-diffs.html
+	@echo '</style>' | tee -a i2p-diffs.html
+	markdown WARNING.md | tee -a i2p-diffs.html
+	@echo '</body>' | tee -a i2p-diffs.html
+	@echo '</html>' | tee -a i2p-diffs.html
