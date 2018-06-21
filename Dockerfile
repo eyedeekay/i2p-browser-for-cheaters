@@ -58,6 +58,8 @@ RUN mv /home/anon/working/i2p-browser_en-US/ /home/anon/i2p-browser_en-US/
 
 USER root
 
+COPY i2p-diffs.html /usr/share/i2p-torbrowser-sockets-workaround/homepage/i2p-diffs.html
+
 CMD chown -R anon:anon /home/anon/.local/ && \
     chmod -R o+rw /home/anon/.local/ && \
-    sudo -u anon /home/anon/i2p-browser_en-US/Browser/start-i2p-browser
+    sudo -u anon /home/anon/i2p-browser_en-US/Browser/start-i2p-browser /usr/share/i2p-torbrowser-sockets-workaround/homepage/i2p-diffs.html
