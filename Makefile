@@ -45,7 +45,7 @@ checksig: torbrowser
       --recv-keys "EF6E 286D DA85 EA2A 4BA7  DE68 4E2C 6E87 9329 8290"
 	gpg --verify tbb$(BROWSER_VERSION).tar.xz.asc || rm tbb$(BROWSER_VERSION).tar.xz
 
-download: checksig
+download: torbrowser checksig
 	rm -rf $(browser) && mkdir -p $(browser)
 	cd $(browser) && \
 		tar xf ../tbb$(BROWSER_VERSION).tar.xz
@@ -294,10 +294,10 @@ index:
 	@echo '    <title>Unofficial i2p Browser</title>' | tee -a i2p-diffs.html
 	@echo '<body>' | tee -a i2p-diffs.html
 	@echo '<style>' | tee -a i2p-diffs.html
-	@echo '    body {background-color: khaki; font-family: monospace; margin-left: auto; margin-right: auto; width: 80%; font-size: 14px;}' | tee -a i2p-diffs.html
+	@echo '    body {background-color: khaki; border: 3px dotted sienna; font-family: monospace; margin-left: auto; margin-right: auto; width: 80%; font-size: 14px;}' | tee -a i2p-diffs.html
 	@echo '    h1 {color: greenviolet; border: 10px solid seagreen; text-align: center; background-color: gold; margin-left: auto; margin-right: auto; width: 50%; font-size: 30px;}' | tee -a i2p-diffs.html
 	@echo '    h2 {color: darkviolet; border: 10px dotted darksalmon; text-align: center; background-color: gold; margin-left: auto; margin-right: auto; width: 50%; font-size: 24px;}' | tee -a i2p-diffs.html
-	@echo '    p {color: indigo; border: 3px dotted seagreen; margin-left: auto; margin-right: auto; width: 80%;}' | tee -a i2p-diffs.html
+	@echo '    p {color: indigo; border: 3px solid seagreen; margin-left: auto; margin-right: auto; width: 80%;}' | tee -a i2p-diffs.html
 	@echo '</style>' | tee -a i2p-diffs.html
 	markdown WARNING.md | tee -a i2p-diffs.html
 	@echo '</body>' | tee -a i2p-diffs.html

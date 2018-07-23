@@ -26,6 +26,10 @@ appear to be honoring the observatory settings at this time.
 By the way, these notes are, at this point, as much for my benefit as anybody
 else's. Need to keep track of what's going on.
 
+**If you're using the makefile, make sure you have wget and gpg installed.**
+**Optionally, docker, go and git are helpful for some of the repackaging hacks**
+**and stuff.**
+
 ## Details:
 
 The bulk of the work is being done by [this script shell script now](https://github.com/eyedeekay/i2p-browser-for-cheaters/blob/master/setup-i2p-browser.sh).

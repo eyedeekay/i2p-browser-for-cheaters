@@ -1,0 +1,19 @@
+
+matrix:
+  include:
+    - os: linux
+      dist: xenial
+      sudo: required
+
+language: go
+
+before_install:
+    sudo sed -i 's|xenial|bionic|g' /etc/apt/sources.list &&
+    sudo apt-get update &&
+    sudo apt-get dist-upgrade &&
+    sudo apt-get install i2pd
+
+install:
+    sudo service i2pd start; sleep 10;
+    make download easy;
+    sudo service i2pd stop
