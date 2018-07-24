@@ -15,8 +15,8 @@ before_install:
 
 install:
     sudo service i2pd start; sleep 10;
-    make download easy;
+    BROWSER_VERSION=7.5.5 make download easy;
     sudo service i2pd stop
 
 script:
-    make download easy
+    BROWSER_VERSION=7.5.5 make download easy
