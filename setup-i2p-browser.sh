@@ -157,8 +157,8 @@ mv "$i2pbrowser_directory/Browser/start-tor-browser" "$i2pbrowser_directory/Brow
 
 sed -i 's|Tor Browser|Unofficial i2p Browser|g' "$i2pbrowser_directory/Browser/application.ini"
 sed -i 's|Tor Browser|Unofficial i2p Browser|g' "$i2pbrowser_directory/Browser/start-i2p-browser"
-sed -i 's|Tor Browser|Unofficial i2p Browser|g' "$i2pbrowser_directory/Browser/start-i2p-browser"
-sed -i 's|start-tor-browser.desktop|start-i2p-browser.desktop|g' "$i2pbrowser_directory/Browser/start-i2p-browser.desktop"
+sed -i 's|Tor Browser|Unofficial i2p Browser|g' "$i2pbrowser_directory/Browser/start-i2p-browser.desktop"
+sed -i 's|start-tor-browser.desktop|start-i2p-browser.desktop|g' "$i2pbrowser_directory/Browser/start-i2p-browser"
 sed -i 's|Tor Browser|Unofficial i2p Browser|g' "$i2pbrowser_directory/start-i2p-browser.desktop"
 
 find "$i2pbrowser_directory/" -name '*.desktop' -exec sed -i 's|start-tor-browser|start-i2p-browser|g' {} \;
