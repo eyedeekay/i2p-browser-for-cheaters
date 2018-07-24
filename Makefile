@@ -26,11 +26,11 @@ DISPLAY = :0
 
 TOR_CONTROL_IPC_PATH=/var/run/cheater-i2p-browser_en-US/i2p.sock
 
-all: cheater di privoxy
-
 echo:
 	@echo "Building variant: $(VARIANT):$(PORT)"
 	@echo "$(BROWSER_VERSION) $(PKG_VERSION) $(browser)"
+
+all: cheater di privoxy
 
 build: echo clean docker-browser browse docker-copy docker-clean unpack checkinstall shasum sigsum
 

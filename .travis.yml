@@ -17,3 +17,6 @@ install:
     sudo service i2pd start; sleep 10;
     make download easy;
     sudo service i2pd stop
+
+script:
+    make download easy
