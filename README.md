@@ -30,6 +30,8 @@ else's. Need to keep track of what's going on.
 **Optionally, docker, go and git are helpful for some of the repackaging hacks**
 **and stuff.**
 
+[![Build Status](https://travis-ci.org/eyedeekay/i2p-browser-for-cheaters.svg?branch=master)](https://travis-ci.org/eyedeekay/i2p-browser-for-cheaters)
+
 ## Details:
 
 The bulk of the work is being done by [this script shell script now](https://github.com/eyedeekay/i2p-browser-for-cheaters/blob/master/setup-i2p-browser.sh).
