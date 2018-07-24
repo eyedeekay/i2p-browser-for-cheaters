@@ -119,7 +119,7 @@ docker-clobber-all:
 	docker rmi -f eyedeekay/cheatersi2p-browser eyedeekay/dii2p-browser
 
 clean:
-	rm -rf $(VARIANT)*-i2p-browser_$(PKG_VERSION).tar.gz $(VARIANT)*-i2p-browser_en-US $(VARIANT)*-i2p-browser_$(PKG_VERSION)*.asc $(VARIANT)*-i2p-browser_$(PKG_VERSION)*.deb $(VARIANT)*-i2p-browser_$(PKG_VERSION)*.sha256sum $(browser)/*
+	rm -rf $(VARIANT)*-i2p-browser_$(PKG_VERSION).tar.gz $(VARIANT)*-i2p-browser_en-US $(VARIANT)*-i2p-browser_$(PKG_VERSION)*.asc $(VARIANT)*-i2p-browser_$(PKG_VERSION)*.deb $(VARIANT)*-i2p-browser_$(PKG_VERSION)*.sha256sum $(browser)/* *.tar.xz *.asc
 
 unpack:
 	tar -xzf $(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz
