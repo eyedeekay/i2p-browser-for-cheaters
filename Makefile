@@ -41,7 +41,7 @@ tbb$(BROWSER_VERSION).tar.xz:
 	/usr/bin/wget -c -O tbb$(BROWSER_VERSION).tar.xz.asc "https://www.torproject.org/dist/torbrowser/"$(BROWSER_VERSION)"/tor-browser-linux64-"$(BROWSER_VERSION)"_en-US.tar.xz.asc"
 
 checksig: torbrowser
-	gpg \
+	gpg --keyserver ha.pool.sks-keyservers.net \
       --recv-keys "EF6E 286D DA85 EA2A 4BA7  DE68 4E2C 6E87 9329 8290"
 	gpg --verify tbb$(BROWSER_VERSION).tar.xz.asc || rm tbb$(BROWSER_VERSION).tar.xz
 
