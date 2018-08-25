@@ -10,12 +10,10 @@ language: go
 before_install:
     sudo apt-get update &&
     sudo apt-get dist-upgrade &&
-    sudo apt-get install curl wget gpg make
+    sudo apt-get install curl wget gnupg make
 
 install:
-    sudo service i2pd start; sleep 10;
-    make download easy;
-    sudo service i2pd stop
+    make download easy
 
 script:
     make download easy
