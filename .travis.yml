@@ -8,10 +8,9 @@ matrix:
 language: go
 
 before_install:
-    sudo sed -i 's|xenial|bionic|g' /etc/apt/sources.list &&
     sudo apt-get update &&
     sudo apt-get dist-upgrade &&
-    sudo apt-get install i2pd
+    sudo apt-get install curl wget gpg make
 
 install:
     sudo service i2pd start; sleep 10;
