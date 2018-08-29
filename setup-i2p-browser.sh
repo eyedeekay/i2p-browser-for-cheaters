@@ -135,6 +135,8 @@ echo "$i2pbrowser_append_extension_overrides" >> "$extension_overrides"
 
 echo "$i2pbrowser_syspref_js" > "$i2pbrowser_preferences"
 
+cat "$extension_overrides" "$i2pbrowser_preferences" >> $i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/user.js
+
 if [ "$socket" = "true" ]; then
     sed -i "s|/var/run/cheaters-i2p-browser_en-US/i2p.sock|$i2pbrowser_socket|g" "$extension_overrides"
     sed -i 's|//pref("extensions.torlauncher.socks_port_use_ipc"|pref("extensions.torlauncher.socks_port_use_ipc"|g' "$extension_overrides"
