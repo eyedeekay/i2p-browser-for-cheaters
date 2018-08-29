@@ -135,7 +135,7 @@ echo "$i2pbrowser_append_extension_overrides" >> "$extension_overrides"
 
 echo "$i2pbrowser_syspref_js" > "$i2pbrowser_preferences"
 
-cat "$extension_overrides" "$i2pbrowser_preferences" >> $i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/prefs.js
+
 
 if [ "$socket" = "true" ]; then
     sed -i "s|/var/run/cheaters-i2p-browser_en-US/i2p.sock|$i2pbrowser_socket|g" "$extension_overrides"
@@ -152,7 +152,17 @@ fi
 
 tail -n 18 "$extension_overrides"
 
+cat "$extension_overrides" "$i2pbrowser_preferences" >> $i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/user.js
+
+sed -i 's|pref(|user_pref(|g' $i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/user.js
+
 cat "$i2pbrowser_preferences"
+
+cp -rv "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/" "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.i2p/"
+
+
+
+rm -rf "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.i2p/extensions"
 
 mv "$i2pbrowser_directory/start-tor-browser.desktop" "$i2pbrowser_directory/start-i2p-browser.desktop"
 mv "$i2pbrowser_directory/Browser/start-tor-browser.desktop" "$i2pbrowser_directory/Browser/start-i2p-browser.desktop"
