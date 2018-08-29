@@ -70,7 +70,8 @@ pref(\"extensions.torlauncher.prompt_at_startup\", $I2P_TORLAUNCHER_SHOW_PROMPT)
 validate_i2pbrowser_directory(){
     temp="$1"
     if [ -d "$temp" ]; then
-        if [ -f "$temp/Browser/TorBrowser/Data/Browser/profile.default/preferences/extension-overrides.js" ]; then
+        if [ -d "$temp/Browser/TorBrowser/Data/Browser/profile.default/" ]; then
+            mkdir -p "$temp/Browser/TorBrowser/Data/Browser/profile.default/preferences"
             echo "$temp"
         else
             echo "error; i2pbrowser_directory does not appear to be a TBB directory" 1>&2
