@@ -160,8 +160,6 @@ cat "$i2pbrowser_preferences"
 
 cp -rv "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/" "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.i2p/"
 
-
-
 rm -rf "$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.i2p/extensions"
 
 mv "$i2pbrowser_directory/start-tor-browser.desktop" "$i2pbrowser_directory/start-i2p-browser.desktop"

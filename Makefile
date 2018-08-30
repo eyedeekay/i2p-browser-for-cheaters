@@ -299,3 +299,8 @@ index:
 	markdown WARNING.md | tee -a i2p-diffs.html
 	@echo '</body>' | tee -a i2p-diffs.html
 	@echo '</html>' | tee -a i2p-diffs.html
+
+profile:
+	rm -rf ../tb-profile-i2p/var/lib/tb-profile-i2p/profile.i2p/
+	mkdir -p ../tb-profile-i2p/var/lib/tb-profile-i2p/profile.i2p/
+	cp -rv ./browser/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.i2p/ ../tb-profile-i2p/var/lib/tb-profile-i2p/profile.i2p/
