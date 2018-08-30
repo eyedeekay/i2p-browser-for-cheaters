@@ -1,14 +1,31 @@
 FROM debian:sid
-ARG BROWSER_VERSION="7.5.5"
-ARG HOST="127.0.0.1"
-ARG PORT="4444"
+ARG DEBIAN_FRONTEND=noninteractive
+ARG HOME=/home/anon
+ARG BROWSER_VERSION="7.5.6"
+ARG HOST="172.80.80.4"
+ARG PORT="44443"
+ARG TOR_FORCE_NET_CONFIG=0
+ARG TOR_SKIP_LAUNCH=1
+ARG TOR_SKIP_CONTROLPORTTEST=1
+ARG TOR_HIDE_BROWSER_LOGO=1
+ARG TOR_CONFIGURE_ONLY=0
 
-ENV DEBIAN_FRONTEND=noninteractive HOME=/home/anon
+ENV DEBIAN_FRONTEND=noninteractive
+ENV HOME=/home/anon
+ENV TOR_FORCE_NET_CONFIG=0
+ENV TOR_SKIP_LAUNCH=1
+ENV TOR_SKIP_CONTROLPORTTEST=1
+ENV TOR_HIDE_BROWSER_LOGO=1
+ENV TOR_CONFIGURE_ONLY=0
+ENV TOR_SOCKS_HOST=$HOST
+ENV TOR_SOCKS_PORT=$PORT
+
+RUN sed -i 's/sid main/sid main contrib/g' /etc/apt/sources.list
 
 RUN apt-get update && \
-    apt-get -y dist-upgrade && \
-    sed -i.bak 's/sid main/sid main contrib/g' /etc/apt/sources.list && \
-    apt-get update && apt-get install -y \
+    apt-get -y dist-upgrade
+
+RUN apt-get update && apt-get install -y \
     iceweasel \
     gnupg \
     zenity \
@@ -16,14 +33,20 @@ RUN apt-get update && \
     xz-utils \
     curl \
     sudo \
-    --no-install-recommends && \
-    localedef -v -c -i en_US -f UTF-8 en_US.UTF-8 || :
+    xdotool \
+    dirmngr \
+    file \
+    libgtkextra-dev
+
+RUN localedef -v -c -i en_US -f UTF-8 en_US.UTF-8 || :
 
 RUN groupadd -g 1000 anon
-RUN useradd -m -g 1000 -u 1000 -d /home/anon anon
-RUN mkdir /home/anon/.local
+RUN adduser --home /home/anon --gecos 'anon,,,,' --gid 1000 --uid 1000 --disabled-password anon
+RUN adduser anon sudo
 
 USER anon
+
+RUN mkdir /home/anon/.local
 
 WORKDIR /home/anon
 
@@ -62,4 +85,4 @@ COPY i2p-diffs.html /usr/share/i2p-torbrowser-sockets-workaround/homepage/i2p-di
 
 CMD chown -R anon:anon /home/anon/.local/ && \
     chmod -R o+rw /home/anon/.local/ && \
-    sudo -u anon /home/anon/i2p-browser_en-US/Browser/start-i2p-browser /usr/share/i2p-torbrowser-sockets-workaround/homepage/i2p-diffs.html
+    sudo -u anon /home/anon/i2p-browser_en-US/Browser/start-i2p-browser --verbose /usr/share/i2p-torbrowser-sockets-workaround/homepage/i2p-diffs.html

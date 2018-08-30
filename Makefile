@@ -15,12 +15,12 @@ BROWSER_VERSION = $(shell curl $(UPDATE_URL) 2> /dev/null | grep -vi macos | gre
 DEFAULT_PORT=4444
 DEFAULT_ADDR=127.0.0.1
 
-VARIANT?=cheaters
-PORT?=$(DEFAULT_PORT)
+VARIANT=cheaters
+PORT=$(DEFAULT_PORT)
 
 PKG_VERSION=0.$(EXPERIMENTAL)$(BROWSER_VERSION)
 
-DISPLAY = :0
+DISPLAY=:0
 
 TOR_CONTROL_IPC_PATH=/var/run/cheater-i2p-browser_en-US/i2p.sock
 
@@ -95,14 +95,13 @@ docker-browser:
 		-f Dockerfile -t eyedeekay/$(VARIANT)i2p-browser .
 
 browse:
-	docker run --rm -i -t -d \
+	docker run --rm -i -t \
 		-e DISPLAY=$(DISPLAY) \
 		-e BROWSER_VERSION="$(BROWSER_VERSION)" \
 		--net host \
 		--name i2p-browser \
 		--volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
-		--volume $(browser):/home/anon/tor-browser_en-US/Browser/Desktop \
-		eyedeekay/$(VARIANT)i2p-browser; true
+		eyedeekay/$(VARIANT)i2p-browser
 
 docker-copy:
 	docker cp i2p-browser:/home/anon/i2p-browser.tar.gz $(VARIANT)-i2p-browser_$(PKG_VERSION).tar.gz
