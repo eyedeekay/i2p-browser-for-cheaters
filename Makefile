@@ -143,7 +143,7 @@ install:
 	cp -Rv $(VARIANT)-i2p-browser_en-US /var/lib/$(VARIANT)-i2p-browser_en-US
 	install -m755 bin/$(VARIANT)-i2p-browser /usr/bin/$(VARIANT)-i2p-browser
 	ln -sf /usr/bin/$(VARIANT)-i2p-browser /usr/bin/$(VARIANT)i2pbrowser
-	chmod a+x /usr/bin/start-i2p-browser
+	#chmod a+x /usr/bin/start-i2p-browser
 
 remove:
 	rm -rf /var/run/$(VARIANT)-i2p-browser_en-US \
