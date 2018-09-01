@@ -94,6 +94,13 @@ docker-browser:
 		--build-arg PORT="$(PORT)" \
 		-f Dockerfile -t eyedeekay/$(VARIANT)i2p-browser .
 
+open:
+	docker run --rm -i -t -d \
+		-e BROWSER_VERSION="$(BROWSER_VERSION)" \
+		--net host \
+		--name i2p-browser \
+		eyedeekay/$(VARIANT)i2p-browser tail -f /usr/share/i2p-torbrowser-sockets-workaround/homepage/i2p-diffs.html
+
 browse:
 	docker run --rm -i -t \
 		-e DISPLAY=$(DISPLAY) \
