@@ -30,7 +30,7 @@ echo:
 
 all: cheater di privoxy
 
-build: echo clean docker-browser browse docker-copy docker-clean unpack checkinstall shasum sigsum
+build: echo clean docker-browser open docker-copy docker-clean unpack checkinstall shasum sigsum
 
 torbrowser: tbb$(BROWSER_VERSION).tar.xz
 
