@@ -30,7 +30,9 @@ echo:
 
 all: cheater di privoxy
 
-build: echo clean docker-browser open docker-copy docker-clean unpack checkinstall shasum sigsum
+build: echo clean docker-browser open docker-copy docker-clean unpack checkinstall
+
+signed-release: build shasum sigsum
 
 torbrowser: tbb$(BROWSER_VERSION).tar.xz
 
@@ -69,13 +71,13 @@ privoxy:
 release: release-cheater release-di release-privoxy
 
 release-cheater:
-	VARIANT=cheaters PORT=4444 make cheater upload-cheater
+	VARIANT=cheaters PORT=4444 make cheater shasum sigsum upload-cheater
 
 release-di:
-	VARIANT=di PORT=4443 make di upload-di
+	VARIANT=di PORT=4443 make di shasum sigsum upload-di
 
 release-privoxy:
-	VARIANT=privoxy PORT=8118 make privoxy upload-privoxy
+	VARIANT=privoxy PORT=8118 make privoxy shasum sigsum upload-privoxy
 
 all-upload: upload-cheater upload-di upload-privoxy
 
