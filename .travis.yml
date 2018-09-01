@@ -13,7 +13,7 @@ before_install:
     sudo apt-get install curl wget gnupg2 make
 
 install:
-    make download easy
+    make download easy all
 
 script:
-    make download easy
+    make download easy all
