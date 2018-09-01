@@ -16,12 +16,12 @@ before_install:
 
 install:
     - make download easy
-    - make cheaters
+    - make cheater
     - make di
     - make privoxy
 
 script:
     - make download easy
-    - make cheaters
+    - make cheater
     - make di
     - make privoxy
