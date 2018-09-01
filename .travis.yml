@@ -8,20 +8,20 @@ matrix:
 language: go
 
 before_install:
-    sudo apt-get update &&
-    sudo apt-get dist-upgrade &&
-    sudo apt-get install curl wget gnupg2 make fakeroot-ng checkinstall &&
+    sudo apt-get update
+    sudo apt-get dist-upgrade
+    sudo apt-get install curl wget gnupg2 make fakeroot-ng checkinstall
     sudo adduser --gecos 'i2pbrowser,,,,' --disabled-password i2pbrowser
 
 
 install:
-    make download easy all
+    make download easy
     make cheaters
     make di
     make privoxy
 
 script:
-    make download easy all
+    make download easy
     make cheaters
     make di
     make privoxy
