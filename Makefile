@@ -313,3 +313,13 @@ profile:
 	rm -rf ../tb-profile-i2p/var/lib/tb-profile-i2p/profile.i2p/
 	mkdir -p ../tb-profile-i2p/var/lib/tb-profile-i2p/profile.i2p/
 	cp -rv ./browser/tor-browser_en-US/Browser/TorBrowser/Data/Browser/profile.i2p/ ../tb-profile-i2p/var/lib/tb-profile-i2p/profile.i2p/
+
+whonix-test:
+		docker run --rm -i -t \
+		-e DISPLAY=$(DISPLAY) \
+		-e BROWSER_VERSION="$(BROWSER_VERSION)" \
+		--net host \
+		--name tb-profile-i2p \
+		--hostname tb-profile-i2p \
+		--volume /tmp/.X11-unix:/tmp/.X11-unix:ro \
+		eyedeekay/tb-profile-i2p
