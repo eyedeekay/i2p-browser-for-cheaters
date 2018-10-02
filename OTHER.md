@@ -42,7 +42,9 @@ selected as Tor's default profile is. The profile is copied to the ~/.i2pb
 folder, then symlinked to the Tor Browser's profile directory, then the
 launchers(start-i2p-browser and start-i2p-browser.desktop) are symlinked into
 the appropriate Tor Browser directory from their home in
-/var/lib/tb-profile-i2p.
+/var/lib/tb-profile-i2p. This is finished, and instead of proposing a new
+package, I added it to tb-starter. **Very** open to change on that matter, but
+the profile itself is in good order.
 
 tb-starter
 ----------
@@ -55,49 +57,38 @@ really convenient way of running Tor Browser on vanilla Debian too, but YMMV.
 tb-starter detects things about the system and configures Tor Browser using
 environment variables(As opposed to the preference-setting here). If the helper
 script(/usr/bin/torbrowser) doesn't find a Tor Browser Bundle at
-$HOME/.tb/tor-browser, then it will invoke tb-updater.
+$HOME/.tb/tor-browser, then it will invoke update-torbrowser.
 
 The changes I made can be viewed [here:](https://github.com/eyedeekay/tb-starter/compare)
+
+It adds functionality for i2p Browser which operates in parallel to the way that
+the regular Tor Browser does. It can be launched with /usr/bin/i2pbrowser.
 
 You can test it by installing with 'make install' or using the package manager
 by running
 
-        tar -czvf ../tb-starter_3.2.orig.tar.gz .
+        tar -czvf ../tb-starter_3.7.orig.tar.gz .
         debuild -us -uc
 
 from the cloned repo directory. Once installed, you'll have a helper script
 at /usr/bin/i2pbrowser which will launch your pre-configured Tor Browser for
-i2p, hereafter called i2p browser.
+i2p, hereafter called i2p browser. These changes are finished and have been
+submitted as of October 2, 2018.
 
-~~torbutton~~
----------
+tb-apparmor-profile
+-------------------
 
-~~Most of the environment variables set by tb-starter pertain to Torbutton.~~
-~~Unfortunately, there was no environment variable for~~
-~~extensions.torbutton.use\_nontor\_proxy and there was no environment variable~~
-~~for setting the HTTP proxy(And i2p's SOCKS proxy isn't used for web-browsing~~
-~~under normal circumstances). In order to fix the SOCKS proxy issue in a way that~~
-~~did not complicate the Tor Browser itself and which accounted for a future where~~
-~~the Tor Browser Bundle communicates via a Unix socket instead of a SOCKS proxy,~~
-~~I chose to use the TOR\_SOCKS\_IPC\_PATH environment variable to direct the~~
-~~i2p browser to communicate with~~
-~~/var/run/i2p-torbrowser-sockets-workaround/i2p\_127.0.0.1\_4447.sock.~~
-~~Unfortunately, this wasn't sufficient, even with the existing environment~~
-~~variables, to allow the Tor Browser to communicate over i2p. In order to do~~
-~~that, I neeeded to set extensions.torbutton.use\_nontor\_proxy=true, which means~~
-~~adding an environment variable to configure Torbutton.~~
+Whonix ships apparmor profiles for Tor Browser Bundle. I noticed that
+/usr/bin/i2pbrowser launched correctly when /usr/bin/torbrowser didn't due to
+a faulty torbrowser apparmor profile. I need to create an apparmor profile for
+the i2p browser.
 
-~~In order to do that, I made the change shown in [this commit](https://github.com/eyedeekay/torbutton/commit/3879775737a640a78e4cbe99605ac22d7b201a0a).~~
+open-link-confirmation
+----------------------
 
-~~In order to test it, you'll need to close my fork of Torbutton and run the~~
-
-        ./makexpi.sh
-
-~~from the cloned repo director. Then you'll need to start the i2p browser and go~~
-~~to about:config, where you'll need to disable xpiinstall.signatures. Then you~~
-~~can install the add-on from the newly generated .xpi file. You may need re-start~~
-~~the browser for the changes to take effect. As of June 10th, 2018, this change~~
-~~has been [submitted as a trac ticket to the Tor Project](https://trac.torproject.org/projects/tor/ticket/26341).~~
+For purely feedback-documentary reasons, I should make it so that
+open-link-confirmation also accepts the --i2p flag, and shows i2p Browser in
+lieu of Tor Browser when giving textual feedback.
 
 i2p-torbrowser-sockets-workaround
 ---------------------------------
