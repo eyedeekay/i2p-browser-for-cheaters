@@ -40,7 +40,7 @@ In order to make Tor Browser work with alternative networks like i2p, ZeroNet,
 FreeNet, and similar, the browser needs a profile and a way to select it in
 lieu of the default Tor Browser profile. In order to do this in a
 straightforward, easily established and easily reversible way, I've packaged a
-profile in tb-starter that I've been testing at (tb-profile-i2p)[https://github.com/eyedeekay/tb-profile-i2p]
+profile in tb-starter that I've been testing at [tb-profile-i2p](https://github.com/eyedeekay/tb-profile-i2p)
 and an alternative launcher which ensures that the i2p browser profile is
 selected as Tor's default profile is. The profile is copied to the ~/.i2pb
 folder, then symlinked to the Tor Browser's profile directory, then the
