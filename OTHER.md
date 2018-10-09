@@ -7,6 +7,8 @@ Whonix:
 tb-updater
 ----------
 
+*available in testers*
+
 Whonix has a useful helper script which makes sure you have an up-to-date Tor
 Browser in a package called tb-updater. The script(/usr/bin/update-torbrowser)
 checks for the presence of a current Tor browser at $HOME/.tb/tor-browser, and
@@ -32,6 +34,8 @@ included in tb-updater.
 tb-profile-i2p
 --------------
 
+*available in testers via tb-starter*
+
 In order to make Tor Browser work with alternative networks like i2p, ZeroNet,
 FreeNet, and similar, the browser needs a profile and a way to select it in
 lieu of the default Tor Browser profile. In order to do this in a
@@ -48,6 +52,8 @@ the profile itself is in good order.
 
 tb-starter
 ----------
+
+*available in testers*
 
 Whonix has another very useful helper script for launching a Tor Browser Bundle
 safely in a package called tb-starter. It solves quite a few relevant problems
@@ -72,38 +78,47 @@ by running
 
 from the cloned repo directory. Once installed, you'll have a helper script
 at /usr/bin/i2pbrowser which will launch your pre-configured Tor Browser for
-i2p, hereafter called i2p browser. These changes are finished and have been
-submitted as of October 2, 2018.
+i2p, hereafter called i2p browser. This version is available in the Whonix
+testers repository.
+
+### Configuring start-tor-browser with Environment Variables
+
+*work-in-progress*
+
+In order to get this working, I needed to re-create the start-tor-browser
+script to launch the i2p Browser specifically. This is because
+start-tor-browser uses the hard-coded path to the Tor Browser Profile which must
+be changed so the i2p Browser profile can be used, and because we need to change
+the WM_CLASS and other features so that the system does not confuse the Tor and
+i2p Browsers. In turn. because start-tor-browser generates .desktop launchers
+for use with a desktop environment, those need to be altered to safely launch
+the i2p Browser instead. The only place that it's possible to do these things is
+in start-tor-browser.
 
 tb-apparmor-profile
 -------------------
 
+*available in testers*
+
 Whonix ships apparmor profiles for Tor Browser Bundle. I noticed that
 /usr/bin/i2pbrowser launched correctly when /usr/bin/torbrowser didn't due to
 a faulty torbrowser apparmor profile. I need to create an apparmor profile for
-the i2p browser.
+the i2p browser. This is implemented and corresponds to the version in Whonix's
+testers repository.
 
 open-link-confirmation
 ----------------------
 
-For purely feedback-documentary reasons, I should make it so that
-open-link-confirmation also accepts the --i2p flag, and shows i2p Browser in
-lieu of Tor Browser when giving textual feedback.
+*available in testers*
 
-i2p-torbrowser-sockets-workaround
----------------------------------
+The open-link-confirmation version in the Whonix testers repository honors
+$tb_title to set the display name of the browser it will open.
 
-Since Tor Browser Bundle needs to communicate over a Unix socket, and since i2p
-does not provide one by default, I needed to provide one. For testing, I simply
-did this with socat, roughly thus:
+anon-ws-disable-stacked-tor
+---------------------------
 
-        socat -t600 -x -v UNIX-LISTEN:"/var/run/i2p-torbrowser-sockets-workaround/i2p_127.0.0.1_4444.sock",mode=777,reuseaddr,fork TCP-CONNECT:localhost:4444
+*work-in-progress*
 
-However to start these automatically, and direct them to a guest, it would be
-better to have them managed by the system/services. So that's what this repo
-is for. It's barely tested, as I'm usually travelling and my netbook doesn't
-have the horsepower to support a Qubes or Whonix-based setup.
-
-As far as I can reckon, once I have this finished some semblance of support for
-i2p browsing in Whonix [will be within reach.](https://github.com/eyedeekay/i2p-torbrowser-sockets-workaround)
-
+Eventually, Tor Browser Bundle will no longer speak TCP, it will communicate via
+a Unix socket. To be prepared for this change, I'm going to set up a rule for
+setting up the socket in anon-ws-disable-stacked-tor.

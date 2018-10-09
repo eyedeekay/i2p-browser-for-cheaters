@@ -122,7 +122,7 @@ if [ -z "$i2pbrowser_directory" ]; then
     exit 1
 fi
 
-extension_overrides="$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/preferences/extension-overrides.js"
+extension_overrides="$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/preferences/i2p-browser.js"
 i2pbrowser_preferences="$i2pbrowser_directory/Browser/TorBrowser/Data/Browser/profile.default/preferences/i2p-browser.js"
 
 echo "modifying Tor Browser Bundle in: $i2pbrowser_directory for use with i2p.
