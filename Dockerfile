@@ -26,7 +26,7 @@ RUN apt-get update && \
     apt-get -y dist-upgrade
 
 RUN apt-get update && apt-get install -y \
-    iceweasel \
+    firefox-esr \
     gnupg \
     zenity \
     ca-certificates \
